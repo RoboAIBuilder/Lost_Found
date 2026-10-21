@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>How Lost &amp; Found Desk works</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#EEF1F6; --surface:#FFFFFF; --sunk:#E4E9F1; --ink:#13203A; --muted:#566179; --line:#D3DAE6;
+  --band:#16284A; --on-band:#F4F6FB; --band-muted:#B3BFD6; --tag:#F6BE1A; --primary:#1F4BA5;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#0E1420; --surface:#162034; --sunk:#111A2B; --ink:#E6ECF7; --muted:#9BA8C0; --line:#2A3650;
+  --band:#0A1222; --on-band:#EEF2FA; --band-muted:#8E9CB8; --tag:#F6C232; --primary:#86ABF6; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--f-body)}
+h1,h2,h3{font-family:var(--f-display);margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{background:var(--band);color:var(--on-band)}
+header .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+header h1{font-size:clamp(24px,5vw,32px);font-weight:800;font-stretch:80%;text-transform:uppercase}
+header a{color:var(--on-band);border:1px solid var(--band-muted);border-radius:8px;padding:7px 12px;text-decoration:none;font-size:15px}
+nav.jump{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+nav.jump a{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;text-decoration:none;color:var(--ink);font-weight:700;font-size:15px}
+main{padding-block:8px 64px;display:grid;gap:44px}
+section{display:grid;gap:18px}
+section > h2{font-size:clamp(26px,4.4vw,34px);font-weight:800;font-stretch:85%;text-transform:uppercase;padding-top:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:14px}
+.card h3{font-size:20px;font-weight:700;font-stretch:92%}
+ol.steps{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:s}
+ol.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;counter-increment:s}
+ol.steps li::before{content:counter(s);font:600 13px/28px var(--f-mono);text-align:center;width:28px;height:28px;border-radius:50%;background:var(--sunk)}
+ol.steps li > div > b{display:block}
+ol.steps span{color:var(--muted);font-size:16px}
+ul.tips{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--muted);font-size:16px}
+ul.tips b{color:var(--ink)}
+.tag{font:600 13px/1 var(--f-mono);background:var(--tag);color:#2B2000;padding:3px 6px;border-radius:4px}
+dl{margin:0;display:grid;gap:16px}
+dt{font-weight:700}
+dd{margin:4px 0 0;color:var(--muted);font-size:16px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>How Lost &amp; Found Desk works</h1><a href="/">Back to the app</a></div></header>
+<main class="wrap">
+  <nav class="jump" aria-label="Jump to"><a href="#students">For students</a><a href="#staff">For office staff</a><a href="#questions">Questions</a></nav>
+
+  <section id="students">
+    <h2>For students</h2>
+    <div class="card">
+      <h3>Find your item</h3>
+      <ol class="steps">
+        <li><div><b>Sign in with your school Google account</b><span>The same one you use for Classroom and Chromebooks.</span></div></li>
+        <li><div><b>Describe what you lost</b><span>Type it the way you'd say it, like "blue water bottle with a soccer sticker". Matches show up with photos.</span></div></li>
+        <li><div><b>Not there? Tap "Search with AI"</b><span>AI reads every item on the shelf and catches things described in different words. You get 20 AI searches a day.</span></div></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Claim it and pick it up</h3>
+      <ol class="steps">
+        <li><div><b>Tap "This is mine"</b><span>Add your name, grade, and something only the owner would know: what's inside, a scratch, writing on it.</span></div></li>
+        <li><div><b>Wait for the office</b><span>Your claim shows under <b>My claims</b>. The office compares your details with the photos.</span></div></li>
+        <li><div><b>Pick it up</b><span>When it says <b>Approved</b>, go to the office and ask for the tag number, like <span class="tag">LF-6514</span>.</span></div></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Search tips</h3>
+      <ul class="tips">
+        <li><b>Say what it is first:</b> "hoodie", "calculator", "lunch box".</li>
+        <li><b>Add what makes it yours:</b> brand, color, size, stickers, your initials.</li>
+        <li><b>Keep it short.</b> "Black Nike hoodie size M" works better than a long story.</li>
+        <li><b>Nothing yet?</b> Items get added every day. Check back tomorrow.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="staff">
+    <h2>For office staff</h2>
+    <div class="card">
+      <h3>Log a found item (about a minute)</h3>
+      <ol class="steps">
+        <li><div><b>Take 2–3 photos</b><span>On a phone, tap the photo box to open the camera. Show the whole item, then close-ups of brand, stickers, writing or damage.</span></div></li>
+        <li><div><b>Type where you're storing it</b><span>For example "Main office, bin B". Students never see this. Earlier spots are suggested as you type.</span></div></li>
+        <li><div><b>Check the description</b><span>AI fills in the name, category, color, details and search words from the photos. Fix anything that's off.</span></div></li>
+        <li><div><b>Add search words</b><span>In <b>Other words a student might use</b>, add a few, like "sweatshirt, jacket". This helps students find it.</span></div></li>
+        <li><div><b>Save, then tag the item</b><span>Write the tag number it shows, like <span class="tag">LF-6514</span>, on a sticky note and put it with the item.</span></div></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Review claims</h3>
+      <ol class="steps">
+        <li><div><b>Open the Claims tab</b><span>The yellow number shows how many claims are waiting.</span></div></li>
+        <li><div><b>Compare the proof with the photos</b><span>The student's detail, the item on file and its storage spot are side by side.</span></div></li>
+        <li><div><b>Approve or decline</b><span><b>Approve &amp; mark returned</b> tells the student to pick it up and closes any other claims on that item. <b>Decline</b> tells the student it wasn't approved.</span></div></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Keep the shelf tidy</h3>
+      <ul class="tips">
+        <li><b>On the shelf:</b> everything waiting for an owner. Tap <b>Change</b> to update a storage spot.</li>
+        <li><b>30+ days:</b> items to donate or discard. Delete them once they leave the shelf.</li>
+        <li><b>Mark returned</b> when you hand back an item without a claim in the app.</li>
+        <li><b>Preview student view</b> shows exactly what students see.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="questions">
+    <h2>Questions</h2>
+    <div class="card">
+      <dl>
+        <div><dt>Why can't I sign in with my personal Gmail?</dt><dd>Only school accounts can sign in, so only people at your school can see items and make claims.</dd></div>
+        <div><dt>Why can't students see where an item is stored?</dt><dd>So items are only handed back by the office, after a claim is checked.</dd></div>
+        <div><dt>What does the AI see?</dt><dd>Item photos, item descriptions and the words typed into search. It never sees student names or emails. Location data is removed from every photo.</dd></div>
+        <div><dt>Why is there a daily limit on AI searches?</dt><dd>Each AI search has a small cost. Word search is free and unlimited, and finds most items.</dd></div>
+        <div><dt>Two students claimed the same item. What happens?</dt><dd>Staff approve the claim with the best proof. The other claims close automatically with a note that the item was returned to its owner.</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+</body>
+</html>

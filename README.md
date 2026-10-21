@@ -13,6 +13,9 @@ The repo has two versions of the same app:
 | `app/` | **The school version.** Python (Flask) + SQLite + Google sign-in + Claude API. Runs on any server. |
 | `artifact.html` | The prototype, which runs only inside Claude as an Artifact. |
 | `seed/` | Scripts that generate 121 mock middle-school items with drawn photos, for demos. |
+| `docs/pitch.html` | One-page pitch: features, AI cost, privacy and where it fits. Open it in a browser. |
+
+**User guide:** the app has a built-in **How it works** page at `/help`, linked from the header and the sign-in screen. It covers finding and claiming an item, logging items, reviewing claims, and common questions.
 
 ---
 
@@ -69,6 +72,16 @@ AI is used only where it adds something:
 - Each student gets `AI_SEARCHES_PER_DAY` AI searches a day (default 20). Staff have no limit.
 - Set a monthly spend limit in the Anthropic Console as a hard cap.
 
+**What it costs** (estimates, Claude Haiku 5.5 at $0.10 per million input tokens and $0.50 per million output):
+
+| | Cost |
+|---|---|
+| Word search | $0 |
+| AI search, about 110 items on the shelf | about $0.001 |
+| Photo description, 2 photos | about $0.0004 |
+| **Typical school a month**: 1,000 searches, 60 new items, word search finds 85% | **about $0.16** (vs $1.17 if every search used AI) |
+| **Large college a month**: 10,000 searches, 300 items on the shelf | **about $3.50** (vs about $28) |
+
 ---
 
 ## How sign-in works with the school's Google accounts
@@ -110,7 +123,18 @@ Checklist before going live:
 - HTTPS on (Google sign-in requires it)
 - `app/data/` backed up
 
-**Cost:** hosting is usually $0–7 a month. The Claude API costs a few cents per day for a school's searches and photo descriptions, using Haiku by default (`CLAUDE_MODEL`).
+**Cost:** hosting is usually under $10 a month. AI costs are in **What it costs** above.
+
+---
+
+## Who can use it
+
+| Setting | Status |
+|---|---|
+| K–12 schools | **Ready.** Built for Google Workspace for Education. |
+| Colleges | **Ready on Google Workspace.** Microsoft 365 campuses need Microsoft sign-in added. |
+| Offices | **Small add.** Add Microsoft sign-in for Microsoft 365 companies, and rename "student" and "grade" in the page text. |
+| Hospitals, hotels, venues | **Needs a guest mode.** Patients and visitors have no organization account, so they'd claim by phone or a desk code instead. A hospital also needs a privacy (HIPAA) review, because patient belongings can count as health information. |
 
 ---
 

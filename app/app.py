@@ -260,6 +260,10 @@ def keyword_search(q, items):
 def index():
     return send_from_directory(app.static_folder, "index.html")
 
+@app.get("/help")
+def help_page():
+    return send_from_directory(app.static_folder, "help.html")
+
 @app.get("/photos/<name>")
 def photo(name):
     if "email" not in session:
