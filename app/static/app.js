@@ -193,6 +193,8 @@ async function addPhotos(files){
   }
   renderShots(); describe();
 }
+// "Sweatshirt, Jacket,  pull-over;Nike" -> ["sweatshirt","jacket","pull-over","nike"]
+const parseKeywords = s => [...new Set(String(s).split(/[,;\n]+/).map(w=>w.trim().toLowerCase()).filter(Boolean))].slice(0,16);
 const setAi = (html, cls="") => { const a=$("#aiStatus"); a.className="ai "+cls; a.innerHTML=html; };
 function photoForm(){ const fd = new FormData(); S.draft.photos.forEach((p,i)=>fd.append("photos", p.blob, `photo${i+1}.jpg`)); return fd; }
 async function describe(){
@@ -207,7 +209,8 @@ async function describe(){
     fill("#fTitle", out.title); fill("#fColor", out.color);
     fill("#fDesc", [out.brand && !String(out.description||"").toLowerCase().includes(String(out.brand).toLowerCase()) ? out.brand+"." : "", out.description].filter(Boolean).join(" "));
     if(S.cats.includes(out.category) && !$("#fCat").dataset.touched) $("#fCat").value = out.category;
-    S.draft.ai = {keywords:Array.isArray(out.keywords)?out.keywords:[], brand:out.brand||""};
+    if(Array.isArray(out.keywords)) fill("#fKw", out.keywords.map(String).join(", "));
+    S.draft.ai = {brand:out.brand||""};
     setAi("Filled in from the photos. Fix anything that's off.","ok");
   }catch(e){
     if(e.name==="AbortError") return;
@@ -218,7 +221,7 @@ function resetLog(){
   S.draft.ctl && S.draft.ctl.abort();
   S.draft.photos.forEach(p=>URL.revokeObjectURL(p.url));
   S.draft = {photos:[], ai:null, ctl:null, busy:false};
-  ["#fTitle","#fColor","#fDesc","#fWhere","#fCat"].forEach(id=>{ const el=$(id); delete el.dataset.touched; if(el.tagName!=="SELECT") el.value=""; });
+  ["#fTitle","#fColor","#fDesc","#fWhere","#fCat","#fKw"].forEach(id=>{ const el=$(id); delete el.dataset.touched; if(el.tagName!=="SELECT") el.value=""; });
   $("#fCat").selectedIndex = 0; $("#logErr").textContent="";
   renderShots(); setAi("Add photos and the description fills in automatically.");
 }
@@ -232,7 +235,7 @@ async function saveItem(){
   const fd = photoForm();
   fd.append("title",title); fd.append("category",$("#fCat").value); fd.append("color",$("#fColor").value.trim());
   fd.append("description",$("#fDesc").value.trim()); fd.append("location",loc); fd.append("found_where",$("#fWhere").value.trim());
-  fd.append("brand",(S.draft.ai&&S.draft.ai.brand)||""); fd.append("keywords",JSON.stringify((S.draft.ai&&S.draft.ai.keywords)||[]));
+  fd.append("brand",(S.draft.ai&&S.draft.ai.brand)||""); fd.append("keywords",JSON.stringify(parseKeywords($("#fKw").value)));
   try{
     const r = await api("/api/items",{method:"POST", form:fd});
     resetLog(); toast(`Saved. Write ${r.tag} on a sticky note and put it with the item.`); loadAll();
@@ -313,7 +316,7 @@ $("#q").addEventListener("keydown",e=>{ if(e.key==="Enter" && !e.shiftKey){ e.pr
 $("#claimForm").addEventListener("submit",e=>{ e.preventDefault(); submitClaim(); });
 $("#logForm").addEventListener("submit",e=>{ e.preventDefault(); saveItem(); });
 $("#shots").addEventListener("change",e=>{ if(e.target.id==="photoIn" && e.target.files.length) addPhotos([...e.target.files]); });
-["#fTitle","#fColor","#fDesc","#fCat"].forEach(id=>$(id).addEventListener("input",ev=>ev.target.dataset.touched="1"));
+["#fTitle","#fColor","#fDesc","#fCat","#fKw"].forEach(id=>$(id).addEventListener("input",ev=>ev.target.dataset.touched="1"));
 $("#claimModal").addEventListener("click",e=>{ if(e.target.id==="claimModal") $("#claimModal").hidden=true; });
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ $("#claimModal").hidden=true; $("#lightbox").hidden=true; }
