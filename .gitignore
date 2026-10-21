@@ -2,3 +2,6 @@ __pycache__/
 seed/photos/
 seed/docs/
 seed/*.json
+app/data/
+app/.env
+.venv/

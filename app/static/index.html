@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lost &amp; Found Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: navy desk band on top; student search first, staff tools as tabs; items as tagged photo cards in a wrapping grid. */
+:root{
+  --bg:#EEF1F6; --surface:#FFFFFF; --sunk:#E4E9F1; --ink:#13203A; --muted:#566179; --line:#D3DAE6;
+  --band:#16284A; --on-band:#F4F6FB; --band-muted:#B3BFD6;
+  --tag:#F6BE1A; --on-tag:#2B2000;
+  --primary:#1F4BA5; --on-primary:#FFFFFF;
+  --ok:#17734F; --ok-bg:#DDF2E8; --warn:#8A5A00; --warn-bg:#FCEFD2; --bad:#A8222D; --bad-bg:#F9E0E2;
+  --scrim:rgba(10,16,30,.72);
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1420; --surface:#162034; --sunk:#111A2B; --ink:#E6ECF7; --muted:#9BA8C0; --line:#2A3650;
+  --band:#0A1222; --on-band:#EEF2FA; --band-muted:#8E9CB8;
+  --tag:#F6C232; --on-tag:#231A00;
+  --primary:#86ABF6; --on-primary:#0B1426;
+  --ok:#72D4A8; --ok-bg:#12352A; --warn:#F2C26B; --warn-bg:#3A2C10; --bad:#F2959C; --bad-bg:#3D171C;
+  --scrim:rgba(0,0,0,.78); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0E1420; --surface:#162034; --sunk:#111A2B; --ink:#E6ECF7; --muted:#9BA8C0; --line:#2A3650;
+  --band:#0A1222; --on-band:#EEF2FA; --band-muted:#8E9CB8;
+  --tag:#F6C232; --on-tag:#231A00;
+  --primary:#86ABF6; --on-primary:#0B1426;
+  --ok:#72D4A8; --ok-bg:#12352A; --warn:#F2C26B; --warn-bg:#3A2C10; --bad:#F2959C; --bad-bg:#3D171C;
+  --scrim:rgba(0,0,0,.78); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+.signin{max-width:520px;margin:48px auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:grid;gap:16px}
+.signin h2{font-size:32px;font-weight:800;font-stretch:85%}.signin p{color:var(--muted)}
+.gbtn{display:inline-flex;align-items:center;gap:10px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:11px 20px;font-weight:700;text-decoration:none;justify-self:start}
+.gbtn:hover{background:var(--sunk)}.devrow{display:flex;gap:8px;flex-wrap:wrap}.devrow a{text-decoration:none}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--f-body)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* band */
+.band{background:var(--band);color:var(--on-band)}
+.band .wrap{padding-block:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand h1{font-size:clamp(24px,5vw,32px);font-weight:800;font-stretch:80%;letter-spacing:.01em;text-transform:uppercase}
+.brand p{color:var(--band-muted);font-size:14px}
+.logo{flex:none;width:44px;height:30px;background:var(--tag);clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%);position:relative}
+.logo::after{content:"";position:absolute;left:11px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--band)}
+.who{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{font:600 12px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;padding:7px 10px;border-radius:999px;border:1px solid var(--band-muted);color:var(--on-band)}
+.ghost{background:transparent;border:1px solid var(--band-muted);color:var(--on-band);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:14px}
+.ghost:hover{background:rgba(255,255,255,.08)}
+
+main.wrap{padding-block:28px 64px;display:grid;gap:36px}
+.notice{background:var(--warn-bg);color:var(--warn);border-radius:var(--r);padding:14px 16px}
+
+/* buttons, fields */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:8px;padding:11px 18px;font-weight:700;cursor:pointer;background:var(--primary);color:var(--on-primary)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.sec{background:var(--sunk);color:var(--ink)}
+.btn.ok{background:var(--ok);color:var(--surface)}
+.btn.bad{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.btn.sm{padding:7px 12px;font-size:14px}
+label{display:grid;gap:6px;font-weight:700;font-size:14px}
+label .hint{font-weight:400;color:var(--muted)}
+input[type=text],select,textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-weight:400;font-size:16px}
+textarea{resize:vertical;min-height:84px}
+
+/* sections */
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin-bottom:14px}
+.sec-head h2{font-size:22px;font-weight:700;font-stretch:90%}
+.sec-head p{color:var(--muted);font-size:14px}
+.empty{border:2px dashed var(--line);border-radius:var(--r);padding:28px 20px;text-align:center;color:var(--muted)}
+.empty strong{display:block;color:var(--ink);font-family:var(--f-display);font-size:18px;margin-bottom:4px}
+
+/* search hero */
+.ask{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,4vw,30px);display:grid;gap:14px}
+.ask h2{font-size:clamp(28px,6vw,42px);font-weight:800;font-stretch:85%}
+.ask .row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.ask textarea{flex:1 1 320px;min-height:64px;font-size:17px}
+.ask .btn{flex:0 0 auto;padding-inline:26px;font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chips span{color:var(--muted);font-size:14px}
+.chip{background:var(--sunk);border:0;border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer}
+.chip:hover{background:var(--line)}
+.status{font-size:14px;color:var(--muted);display:flex;gap:8px;align-items:center;min-height:22px}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--primary);animation:spin .8s linear infinite;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* item cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.ph{position:relative;aspect-ratio:4/3;background:var(--sunk);max-width:100%;border:0;padding:0;cursor:zoom-in;display:block;width:100%}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.noph{display:grid;place-items:center;height:100%;color:var(--muted);font-size:14px}
+.tag{position:absolute;top:10px;left:10px;background:var(--tag);color:var(--on-tag);font:600 12px/1 var(--f-mono);letter-spacing:.04em;padding:7px 10px 7px 20px;clip-path:polygon(10px 0,100% 0,100% 100%,10px 100%,0 50%)}
+.tag::before{content:"";position:absolute;left:9px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--surface)}
+.more{position:absolute;right:10px;bottom:10px;background:var(--scrim);color:#fff;font:600 12px/1 var(--f-mono);padding:5px 7px;border-radius:5px}
+.card .body{padding:14px;display:grid;gap:8px;flex:1;align-content:start}
+.card h3{font-size:18px;font-weight:700;font-stretch:95%}
+.desc{color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card .foot{margin-top:auto;padding:0 14px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.why{font-size:14px;background:var(--sunk);border-radius:8px;padding:8px 10px}
+.conf{display:inline-block;font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;padding:5px 7px;border-radius:5px;margin-right:6px;vertical-align:1px}
+.conf.high{background:var(--ok-bg);color:var(--ok)} .conf.medium{background:var(--warn-bg);color:var(--warn)} .conf.low{background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:5px 10px;border-radius:999px}
+.st.pending{background:var(--warn-bg);color:var(--warn)} .st.approved,.st.returned{background:var(--ok-bg);color:var(--ok)} .st.declined{background:var(--bad-bg);color:var(--bad)} .st.available{background:var(--sunk);color:var(--ink)} .st.old{background:var(--bad-bg);color:var(--bad)}
+.loc{display:flex;gap:8px;align-items:flex-start;background:var(--sunk);border-radius:8px;padding:8px 10px;font-size:14px}
+.loc svg{flex:none;margin-top:2px}
+.loc b{display:block;font-size:11px;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.loc .val{min-width:0;flex:1;overflow-wrap:anywhere}
+.linkish{background:none;border:0;color:var(--primary);cursor:pointer;font-size:13px;font-weight:700;padding:0}
+.locedit{display:flex;gap:6px;flex-wrap:wrap}
+.locedit input{flex:1 1 140px;padding:7px 9px;font-size:14px}
+
+/* my claims list */
+.claims{display:grid;gap:10px}
+.crow{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:start}
+.crow .thumb{width:72px;height:72px;border-radius:8px;overflow:hidden;background:var(--sunk);position:relative}
+.crow .thumb img{width:100%;height:100%;object-fit:cover}
+.crow .info{display:grid;gap:6px;min-width:0}
+.crow .top{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.crow h3{font-size:17px;font-weight:700}
+.mono{font-family:var(--f-mono);font-size:13px;font-weight:600}
+.proof{font-size:14px;border-left:3px solid var(--tag);padding:2px 0 2px 10px;overflow-wrap:anywhere}
+.compare{font-size:13px;color:var(--muted)}
+.crow .acts{display:flex;gap:8px;flex-wrap:wrap}
+
+/* staff */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:20px;overflow-x:auto}
+.tab{background:none;border:0;padding:10px 16px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--tag)}
+.badge{background:var(--tag);color:var(--on-tag);font:600 12px/1 var(--f-mono);padding:4px 7px;border-radius:999px}
+.log{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:760px){.log{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:16px}
+.panel h3{font-size:18px;font-weight:700;display:flex;gap:10px;align-items:center}
+.step{font:600 12px/1 var(--f-mono);background:var(--band);color:var(--on-band);padding:5px 8px;border-radius:5px}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.shot{aspect-ratio:1;border-radius:10px;background:var(--sunk);position:relative;overflow:hidden;border:2px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center;padding:6px}
+.shot.has{border:0;padding:0}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot .x{position:absolute;top:6px;right:6px;background:var(--scrim);color:#fff;border:0;border-radius:999px;width:28px;height:28px;cursor:pointer;font-size:16px;line-height:1}
+.addph{position:relative;display:flex}
+.addph input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:480px){.two{grid-template-columns:1fr}}
+.ai{font-size:14px;border-radius:8px;padding:9px 12px;background:var(--sunk);color:var(--muted);display:flex;gap:8px;align-items:center}
+.ai.ok{background:var(--ok-bg);color:var(--ok)} .ai.warn{background:var(--warn-bg);color:var(--warn)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters .chip[aria-pressed="true"]{background:var(--band);color:var(--on-band)}
+
+/* overlays */
+.overlay{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:50}
+.modal{background:var(--surface);border-radius:14px;width:min(520px,100%);max-height:100%;overflow:auto;padding:22px;display:grid;gap:14px}
+.modal h2{font-size:24px;font-weight:800;font-stretch:88%}
+.modal .acts{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.err{color:var(--bad);font-size:14px}
+.lb{display:grid;gap:10px;width:min(900px,100%);max-height:100%;overflow:auto}
+.lb img{width:100%;max-height:70vh;object-fit:contain;border-radius:10px;background:#000}
+.lb .cap{color:#fff;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--band);color:var(--on-band);padding:12px 18px;border-radius:10px;z-index:60;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}}
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div><h1>Lost &amp; Found Desk</h1><p>Describe what you lost. We'll check what's been turned in.</p></div>
+    </div>
+    <div class="who">
+      <span class="pill" id="rolePill">Loading</span>
+      <button class="ghost" id="modeBtn" hidden>Preview student view</button>
+      <a class="ghost" id="signOut" href="/logout" hidden style="text-decoration:none">Sign out</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="signin" hidden>
+  <section class="signin">
+    <h2>Sign in with your school account</h2>
+    <p>Use the same Google account you use for Classroom and Chromebooks.</p>
+    <p class="notice" id="signinErr" hidden>That account isn't a school account. Sign in with your school Google account.</p>
+    <a class="gbtn" id="googleBtn" href="/login" hidden><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Sign in with Google</a>
+    <div id="devLogins" hidden style="display:grid;gap:8px">
+      <p class="meta">Test mode: pick a demo user.</p>
+      <div class="devrow">
+        <a class="btn" href="/dev-login?email=office@example.org&amp;name=Ms.%20Rivera&amp;role=staff">Office staff</a>
+        <a class="btn sec" href="/dev-login?email=ava.r@example.org&amp;name=Ava%20R.&amp;role=student">Student: Ava</a>
+        <a class="btn sec" href="/dev-login?email=liam.k@example.org&amp;name=Liam%20K.&amp;role=student">Student: Liam</a>
+      </div>
+    </div>
+    <p class="notice" id="noLogin" hidden>Sign-in isn't set up yet. Add Google sign-in details to the server's .env file.</p>
+  </section>
+</main>
+<div id="app" hidden>
+<main class="wrap">
+  <div class="notice" id="notice" hidden></div>
+
+  <!-- STUDENT -->
+  <section id="studentView" hidden>
+    <div style="display:grid;gap:36px">
+      <form class="ask" id="askForm" autocomplete="off">
+        <h2>What did you lose?</h2>
+        <div class="row">
+          <textarea id="q" placeholder="e.g. a light blue water bottle with a soccer sticker, lost near the gym on Monday" aria-label="Describe what you lost"></textarea>
+          <button class="btn" id="searchBtn" type="submit">Search</button>
+        </div>
+        <div class="chips"><span>Try:</span>
+          <button type="button" class="chip" data-action="example">black hoodie, size M</button>
+          <button type="button" class="chip" data-action="example">TI-84 calculator with my initials</button>
+          <button type="button" class="chip" data-action="example">purple lunch box</button>
+        </div>
+        <div class="status" id="searchStatus" aria-live="polite"></div>
+      </form>
+
+      <section id="resultsSec" hidden>
+        <div class="sec-head"><h2>Possible matches</h2><p id="resultsNote"></p></div>
+        <div id="results"></div>
+      </section>
+
+      <section id="myClaimsSec" hidden>
+        <div class="sec-head"><h2>My claims</h2><p>The office checks each claim before handing an item back.</p></div>
+        <div class="claims" id="myClaims"></div>
+      </section>
+
+      <section>
+        <div class="sec-head"><h2>Recently turned in</h2><p id="recentNote"></p></div>
+        <div id="recent"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- STAFF -->
+  <section id="staffView" hidden>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-action="tab" data-tab="log" aria-selected="true">Log an item</button>
+      <button class="tab" role="tab" data-action="tab" data-tab="inv" aria-selected="false">Inventory <span class="badge" id="invCount">0</span></button>
+      <button class="tab" role="tab" data-action="tab" data-tab="claims" aria-selected="false">Claims <span class="badge" id="claimCount" hidden>0</span></button>
+    </div>
+
+    <div id="tab-log">
+      <form class="log" id="logForm" autocomplete="off">
+        <div class="panel">
+          <h3><span class="step">1</span>Take 2–3 photos</h3>
+          <div class="shots" id="shots"></div>
+          <p class="meta">Show the whole item, then close-ups of anything that tells it apart: brand, stickers, writing, damage.</p>
+        </div>
+        <div class="panel">
+          <h3><span class="step">2</span>Where are you storing it?</h3>
+          <label for="fLoc">Storage spot <span class="hint">Students don't see this. It's for whoever hands the item back.</span>
+            <input type="text" id="fLoc" list="locs" placeholder="e.g. Main office, bin B, shelf 2" required></label>
+          <datalist id="locs"></datalist>
+          <label for="fWhere">Where was it found? <span class="hint">Optional</span>
+            <input type="text" id="fWhere" placeholder="e.g. Gym bleachers"></label>
+          <h3><span class="step">3</span>Check the description</h3>
+          <div class="ai" id="aiStatus" aria-live="polite">Add photos and the description fills in automatically.</div>
+          <label for="fTitle">Name<input type="text" id="fTitle" placeholder="e.g. Navy Nike zip-up hoodie"></label>
+          <div class="two">
+            <label for="fCat">Category<select id="fCat"></select></label>
+            <label for="fColor">Color<input type="text" id="fColor" placeholder="e.g. navy blue"></label>
+          </div>
+          <label for="fDesc">Details<textarea id="fDesc" placeholder="Brand, size, stickers, writing, anything that tells it apart"></textarea></label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button class="btn" id="saveBtn" type="submit">Save item</button>
+            <button class="btn sec" type="button" data-action="resetLog">Clear</button>
+            <span class="err" id="logErr" aria-live="polite"></span>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="tab-inv" hidden>
+      <div class="sec-head">
+        <div class="filters">
+          <button class="chip" data-action="filter" data-f="available" aria-pressed="true">On the shelf</button>
+          <button class="chip" data-action="filter" data-f="old" aria-pressed="false">30+ days</button>
+          <button class="chip" data-action="filter" data-f="returned" aria-pressed="false">Returned</button>
+          <button class="chip" data-action="filter" data-f="all" aria-pressed="false">All</button>
+        </div>
+        <p id="invNote"></p>
+      </div>
+      <div id="inventory"></div>
+    </div>
+
+    <div id="tab-claims" hidden>
+      <div class="sec-head"><h2>Claims to check</h2><p>Compare the student's details with the photos before approving.</p></div>
+      <div class="claims" id="staffClaims"></div>
+    </div>
+  </section>
+</main>
+</div>
+
+<div class="overlay" id="claimModal" hidden>
+  <form class="modal" id="claimForm" autocomplete="off">
+    <h2 id="cTitle">Claim this item</h2>
+    <p class="meta" id="cSub"></p>
+    <label for="cName">Your name<input type="text" id="cName" required></label>
+    <label for="cGrade">Grade and homeroom<input type="text" id="cGrade" placeholder="e.g. 7th, Room 214"></label>
+    <label for="cProof">How can the office tell it's yours? <span class="hint">Something only the owner would know: what's inside, a scratch, writing on it.</span>
+      <textarea id="cProof" required></textarea></label>
+    <p class="err" id="cErr" aria-live="polite"></p>
+    <div class="acts">
+      <button class="btn sec" type="button" data-action="closeModal">Cancel</button>
+      <button class="btn" type="submit" id="cSubmit">Send claim</button>
+    </div>
+  </form>
+</div>
+
+<div class="overlay" id="lightbox" hidden data-action="closeLb"></div>
+<div class="toast" id="toast" hidden role="status"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
