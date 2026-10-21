@@ -3,7 +3,7 @@
 A school lost-and-found app.
 
 - **Office staff** take 2–3 photos of a found item and say where it's stored. AI reads the photos and writes the description.
-- **Students** sign in with their school Google account, describe what they lost in plain English, and AI matches it against everything on the shelf. They tap **This is mine** to claim it.
+- **Students** sign in with their school Google account and describe what they lost in plain English. A free word search runs first; if their item isn't there, **Search with AI** checks every item on the shelf. They tap **This is mine** to claim it.
 - **Staff** compare each claim with the photos and approve or decline it. Approving marks the item returned and declines any other claims on it.
 
 The repo has two versions of the same app:
@@ -45,9 +45,29 @@ python app.py
 
 Open http://localhost:5000. Test mode shows **Office staff**, **Student: Ava** and **Student: Liam** buttons instead of Google sign-in. Use a private window to be staff and a student at the same time.
 
-Without `ANTHROPIC_API_KEY`, everything still works, except that search uses keyword matching and staff type item details by hand.
+Without `ANTHROPIC_API_KEY`, everything still works, except that the **Search with AI** button is hidden and staff type item details by hand.
 
 `python seed_mock.py --clear` removes only the demo data.
+
+---
+
+## How search keeps AI costs low
+
+AI is used only where it adds something:
+
+| Step | AI calls |
+|---|---|
+| Staff log an item | **1**, after the last photo is added. Adding or removing photos doesn't call AI again; staff can click "Read the photos again" if needed. |
+| Student searches | **0**. Free word search runs first. |
+| Student clicks **Search with AI** | **1**, only when they ask. The same search on an unchanged shelf reuses the earlier answer at no cost. |
+
+**How word search works.** It matches the student's words against each item's name, color, brand, details, keywords and where it was found.
+- **Synonyms:** "sweatshirt" also finds "hoodie", and "specs" finds "glasses". Add your school's words to `SYNONYM_GROUPS` in `app.py`.
+- **Ranking:** the student's own words count more than synonyms, and item-type words like "hoodie" count more than colors like "blue".
+
+**Guardrails:**
+- Each student gets `AI_SEARCHES_PER_DAY` AI searches a day (default 20). Staff have no limit.
+- Set a monthly spend limit in the Anthropic Console as a hard cap.
 
 ---
 

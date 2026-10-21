@@ -116,13 +116,28 @@ function renderStudent(){
   $("#recentNote").textContent = S.loaded && avail.length ? `${avail.length} item${avail.length>1?"s":""} waiting for owners` : "";
   const rs = S.search;
   $("#resultsSec").hidden = !rs.results;
+  const ex = $("#aiExpand");
   if(rs.results){
     $("#resultsNote").textContent = rs.note;
     const found = rs.results.map(r=>[r,itemById(r.id)]).filter(([,it])=>it);
+    const canAi = rs.mode==="keyword" && rs.aiAvailable;
     $("#results").innerHTML = found.length
       ? `<div class="grid">${found.map(([r,it])=>cardHTML(it,{why:r.reason,conf:r.confidence})).join("")}</div>`
+      : canAi ? `<div class="empty"><strong>No items match those words</strong>AI can look for items described differently.</div>`
       : `<div class="empty"><strong>No match yet</strong>Nothing turned in looks like that. Check back in a few days, or add more detail like brand, size, or stickers.</div>`;
-  }
+    // Offer AI only after a keyword search, so it's used for the hard cases
+    ex.hidden = !canAi;
+    // weak word matches: put the AI offer above them so students see it first
+    const weak = !rs.results.some(r=>r.confidence!=="low");
+    weak ? $("#results").before(ex) : $("#results").after(ex);
+    if(canAi){
+      const left = rs.aiLeft;
+      ex.innerHTML = left===0
+        ? `<p><b>Don't see yours?</b><span class="meta">You've used today's AI searches. Try again tomorrow, or ask the office.</span></p>`
+        : `<p><b>${found.length ? "Don't see yours?" : "Try a smarter search"}</b><span class="meta">AI reads every item on the shelf and catches things described in different words.${left!=null ? ` ${left} AI search${left===1?"":"es"} left today.` : ""}</span></p>
+           <button class="btn" data-action="aiSearch" ${rs.busy?"disabled":""}>Search with AI</button>`;
+    }
+  } else ex.hidden = true;
   $("#myClaimsSec").hidden = !S.myClaims.length;
   $("#myClaims").innerHTML = S.myClaims.map(c=>{
     const msg = c.status==="approved" ? `Go to the office and ask for <span class="mono">${esc(c.tag)}</span>.`
@@ -133,7 +148,7 @@ function renderStudent(){
       <div>${statusPill(c.status)}</div><p class="meta">${msg}</p></div></div>`;
   }).join("");
   $("#searchBtn").disabled = rs.busy;
-  $("#searchStatus").innerHTML = rs.busy ? `<span class="spin"></span>Checking everything that's been turned in…` : "";
+  $("#searchStatus").innerHTML = rs.busy ? `<span class="spin"></span>${rs.busy==="ai" ? "AI is checking every item on the shelf…" : "Searching…"}` : "";
 }
 function renderStaff(){
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", String(t.dataset.tab===S.tab)));
@@ -191,17 +206,31 @@ async function addPhotos(files){
     try{ const blob = await shrink(f); if(blob) S.draft.photos.push({blob,url:URL.createObjectURL(blob)}); }
     catch{ $("#logErr").textContent = "One photo couldn't be opened. Try a JPEG or PNG."; }
   }
-  renderShots(); describe();
+  renderShots(); scheduleDescribe();
+}
+// One AI call per item: wait until staff stop adding photos, then describe once.
+let describeTimer;
+function scheduleDescribe(){
+  clearTimeout(describeTimer);
+  if(!S.draft.photos.length){ setAi("Add photos and the description fills in automatically."); return; }
+  if(!S.me.ai){ setAi("AI isn't set up on this server. Type a name and details.","warn"); return; }
+  if(S.draft.described){
+    setAi(`Filled in from the photos. Fix anything that's off. <button type="button" class="linkish" data-action="redescribe">Read the photos again</button>`,"ok");
+    return;
+  }
+  setAi(S.draft.photos.length<3 ? "Add more photos, or wait a moment and AI will read these." : `<span class="spin"></span>Reading the photos…`);
+  describeTimer = setTimeout(()=>describe(), S.draft.photos.length>=3 ? 0 : 2500);
 }
 // "Sweatshirt, Jacket,  pull-over;Nike" -> ["sweatshirt","jacket","pull-over","nike"]
 const parseKeywords = s => [...new Set(String(s).split(/[,;\n]+/).map(w=>w.trim().toLowerCase()).filter(Boolean))].slice(0,16);
 const setAi = (html, cls="") => { const a=$("#aiStatus"); a.className="ai "+cls; a.innerHTML=html; };
 function photoForm(){ const fd = new FormData(); S.draft.photos.forEach((p,i)=>fd.append("photos", p.blob, `photo${i+1}.jpg`)); return fd; }
 async function describe(){
-  if(!S.draft.photos.length){ setAi("Add photos and the description fills in automatically."); return; }
-  if(!S.me.ai){ setAi("AI isn't set up on this server. Type a name and details.","warn"); return; }
+  clearTimeout(describeTimer);
+  if(!S.draft.photos.length || !S.me.ai) return scheduleDescribe();
+  if(S.draft.busyAi) return;
   if(S.draft.ctl) S.draft.ctl.abort();
-  const ctl = new AbortController(); S.draft.ctl = ctl;
+  const ctl = new AbortController(); S.draft.ctl = ctl; S.draft.busyAi = true;
   setAi(`<span class="spin"></span>Reading the photos…`);
   try{
     const out = await api("/api/describe",{method:"POST", form:photoForm(), signal:ctl.signal});
@@ -210,15 +239,15 @@ async function describe(){
     fill("#fDesc", [out.brand && !String(out.description||"").toLowerCase().includes(String(out.brand).toLowerCase()) ? out.brand+"." : "", out.description].filter(Boolean).join(" "));
     if(S.cats.includes(out.category) && !$("#fCat").dataset.touched) $("#fCat").value = out.category;
     if(Array.isArray(out.keywords)) fill("#fKw", out.keywords.map(String).join(", "));
-    S.draft.ai = {brand:out.brand||""};
-    setAi("Filled in from the photos. Fix anything that's off.","ok");
+    S.draft.ai = {brand:out.brand||""}; S.draft.described = true;
+    scheduleDescribe();
   }catch(e){
     if(e.name==="AbortError") return;
     setAi(esc(e.message),"warn");
-  }
+  }finally{ S.draft.busyAi = false; }
 }
 function resetLog(){
-  S.draft.ctl && S.draft.ctl.abort();
+  S.draft.ctl && S.draft.ctl.abort(); clearTimeout(describeTimer);
   S.draft.photos.forEach(p=>URL.revokeObjectURL(p.url));
   S.draft = {photos:[], ai:null, ctl:null, busy:false};
   ["#fTitle","#fColor","#fDesc","#fWhere","#fCat","#fKw"].forEach(id=>{ const el=$(id); delete el.dataset.touched; if(el.tagName!=="SELECT") el.value=""; });
@@ -244,14 +273,20 @@ async function saveItem(){
 }
 
 /* ---------- student: search & claim ---------- */
-async function runSearch(){
-  const q = $("#q").value.trim(); if(!q){ $("#q").focus(); return; }
+// Word search first (free). AI only when the student asks for it.
+async function runSearch(ai=false){
+  const q = ai ? (S.search.q || $("#q").value.trim()) : $("#q").value.trim();
+  if(!q){ $("#q").focus(); return; }
   const rs = S.search; if(rs.ctl) rs.ctl.abort();
-  const ctl = new AbortController(); rs.ctl = ctl; rs.busy = true; render();
+  const ctl = new AbortController(); rs.ctl = ctl; rs.busy = ai ? "ai" : "word"; render();
   try{
-    const out = await api("/api/search",{method:"POST", json:{q}, signal:ctl.signal});
-    rs.results = out.matches; rs.note = out.note;
-  }catch(e){ if(e.name==="AbortError") return; rs.results=[]; rs.note=e.message; }
+    const out = await api("/api/search",{method:"POST", json:{q, ai}, signal:ctl.signal});
+    Object.assign(rs, {results:out.matches, note:out.note, mode:out.mode, aiAvailable:out.aiAvailable, aiLeft:out.aiLeft, q});
+  }catch(e){
+    if(e.name==="AbortError") return;
+    if(ai){ toast(e.message); if(e.status===429) rs.aiLeft = 0; }   // keep the word results on screen
+    else { rs.results=[]; rs.note=e.message; rs.mode="keyword"; }
+  }
   rs.busy=false; render();
   $("#resultsSec").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
 }
@@ -290,6 +325,8 @@ document.addEventListener("click", async e=>{
   const id = el.dataset.id;
   switch(a){
     case "example": $("#q").value = el.textContent; runSearch(); break;
+    case "aiSearch": runSearch(true); break;
+    case "redescribe": S.draft.described=false; describe(); break;
     case "claim": openClaim(id); break;
     case "closeModal": $("#claimModal").hidden=true; break;
     case "photos": openPhotos(id); break;
@@ -297,7 +334,7 @@ document.addEventListener("click", async e=>{
     case "toggleRecent": S.showAllRecent=!S.showAllRecent; render(); break;
     case "tab": S.tab=el.dataset.tab; S.editing=null; render(); break;
     case "filter": S.filter=el.dataset.f; render(); break;
-    case "rmShot": { const p=S.draft.photos.splice(+el.dataset.i,1)[0]; p && URL.revokeObjectURL(p.url); renderShots(); describe(); break; }
+    case "rmShot": { const p=S.draft.photos.splice(+el.dataset.i,1)[0]; p && URL.revokeObjectURL(p.url); renderShots(); if(!S.draft.described) scheduleDescribe(); else if(!S.draft.photos.length){ S.draft.described=false; scheduleDescribe(); } break; }
     case "resetLog": resetLog(); $("#fLoc").value=""; break;
     case "editLoc": S.editing=id; render(); setTimeout(()=>{ const i=$("#loc-"+CSS.escape(id)); i && i.focus(); },0); break;
     case "saveLoc": { const v=$("#loc-"+CSS.escape(id)).value.trim(); S.editing=null; render(); if(v) act(()=>api(`/api/items/${id}`,{method:"PATCH",json:{location:v}}),"Storage spot updated."); break; }

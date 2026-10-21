@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS claims (
   id INTEGER PRIMARY KEY AUTOINCREMENT, item_id TEXT, student_email TEXT, name TEXT, grade TEXT,
   proof TEXT, status TEXT DEFAULT 'pending', note TEXT, created_at INTEGER, decided_at INTEGER,
   mock INTEGER DEFAULT 0, UNIQUE(item_id, student_email));
+CREATE TABLE IF NOT EXISTS ai_usage (email TEXT, day TEXT, count INTEGER DEFAULT 0, PRIMARY KEY (email, day));
 """
 
 def db():
@@ -192,22 +193,67 @@ later by describing it in their own words. JSON shape:
  "description": "1-2 sentences of distinguishing details: stickers, writing, damage, size, what's inside",
  "keywords": ["8 to 14 lowercase words a student might use, including synonyms, e.g. hoodie, sweatshirt, jacket"]}}"""
 
-STOP = set("a an the my i is it was with and or of in on at to for near lost found have has had its that this from some kind sort".split())
+STOP = set("""a an the my i is it was with and or of in on at to for near lost found have has had its that this
+from some kind sort i'm im me left think maybe like color colour one has looks""".split())
+
+# Words students use for the same kind of thing. Searching any word in a group also matches the others,
+# so "sweatshirt" finds an item a staff member typed in as "hoodie". Add your school's words here.
+SYNONYM_GROUPS = [
+    "hoodie sweatshirt pullover sweater jumper fleece jacket coat zipup zip-up cardigan windbreaker puffer",
+    "bottle flask hydroflask hydro tumbler stanley owala yeti nalgene contigo camelbak cup",
+    "backpack bookbag knapsack bag drawstring tote duffel",
+    "lunchbox lunch bento bentgo thermos",
+    "calculator calc ti-84 ti84 graphing scientific casio",
+    "earbuds airpods earphones earpods headphones headset beats",
+    "glasses eyeglasses spectacles specs frames sunglasses shades",
+    "hat cap beanie",
+    "shoe shoes sneaker sneakers cleats trainers",
+    "charger cable cord",
+    "notebook binder folder journal composition sketchbook",
+    "keys key keychain lanyard id badge",
+    "ball soccer basketball volleyball football",
+    "pencil pen pencils pens pouch",
+    "navy dark-blue",
+    "grey gray",
+]
+SYNONYMS = {}
+for _g in SYNONYM_GROUPS:
+    _words = _g.split()
+    for _w in _words:
+        SYNONYMS.setdefault(_w, set()).update(_words)
+
+def _word_in(word, hay):
+    return re.search(r"(?<![a-z0-9])" + re.escape(word), hay) is not None  # matches at the start of a word
 
 def keyword_search(q, items):
-    toks = [t for t in re.split(r"[^a-z0-9]+", q.lower()) if len(t) > 1 and t not in STOP]
+    """Free search: synonym-aware word matching. Item-type words (hoodie, bottle) count double so they
+    outrank color words (blue)."""
+    q = q.lower().replace("dark blue", "dark-blue").replace("zip up", "zip-up")
+    toks = [t for t in re.split(r"[^a-z0-9\-]+", q) if len(t) > 1 and t not in STOP]
+    toks = list(dict.fromkeys(toks))
+    if not toks:
+        return []
+    weights = {t: 2 if t in SYNONYMS and t not in ("navy", "dark-blue", "grey", "gray") else 1 for t in toks}
+    total = sum(weights.values())
     out = []
     for it in items:
         hay = " ".join([it["title"] or "", it["category"] or "", it["color"] or "", it["brand"] or "",
                         it["description"] or "", " ".join(json.loads(it["keywords"] or "[]")), it["found_where"] or ""]).lower()
-        hits = [t for t in toks if t in hay or (t.endswith("s") and t[:-1] in hay)]
+        hits, s = [], 0.0
+        for t in toks:
+            exact = {t, t[:-1]} if t.endswith("s") and len(t) > 3 else {t}
+            if any(_word_in(a, hay) for a in exact):
+                hits.append(t); s += weights[t]            # the student's own word: full credit
+            elif any(_word_in(a, hay) for a in SYNONYMS.get(t, ())):
+                hits.append(t); s += weights[t] * 0.6      # a synonym: partial credit, so exact words rank first
         if hits:
-            s = len(hits) / max(len(toks), 1)
-            out.append((s, it["id"], "high" if s >= .6 else "medium" if s >= .3 else "low", "Matches: " + ", ".join(hits[:5])))
-    out.sort(key=lambda x: -x[0])
-    if out and out[0][0] >= .5:  # a strong match exists: drop items that only share one word like "blue"
-        out = [o for o in out if o[0] >= .3]
-    return [{"id": i, "confidence": c, "reason": r} for _, i, c, r in out[:8]]
+            s = s / total
+            out.append((s, it["found_at"] or 0, it["id"], hits))
+    out.sort(key=lambda x: (-x[0], -x[1]))
+    if out and out[0][0] >= .5:  # a strong match exists: drop items that only share a minor word like "blue"
+        out = [o for o in out if o[0] >= .34]
+    return [{"id": i, "confidence": "high" if s >= .7 else "medium" if s >= .4 else "low",
+             "reason": "Matches: " + ", ".join(h[:5])} for s, _, i, h in out[:8]]
 
 # ---------------------------------------------------------------- pages & photos
 @app.get("/")
@@ -316,19 +362,55 @@ def delete_item(item_id):
         db().commit()
     return jsonify(ok=True)
 
+AI_SEARCHES_PER_DAY = int(os.environ.get("AI_SEARCHES_PER_DAY", "20"))  # per student; staff aren't limited
+_ai_cache = {}  # (normalized query, shelf version) -> matches. Repeat AI searches cost nothing.
+
+def normalize_query(q):
+    return " ".join(sorted(set(t for t in re.split(r"[^a-z0-9\-]+", q.lower()) if len(t) > 1 and t not in STOP)))
+
+def shelf_version():
+    """Changes whenever an item is added, removed, returned or put back, so cached AI answers stay correct."""
+    r = db().execute("SELECT COUNT(*), COALESCE(MAX(found_at),0), COALESCE(SUM(status='returned'),0), "
+                     "COALESCE(MAX(returned_at),0) FROM items").fetchone()
+    return ":".join(str(x) for x in r)
+
+def ai_searches_used_today(email):
+    r = db().execute("SELECT count FROM ai_usage WHERE email=? AND day=?", (email, time.strftime("%Y-%m-%d"))).fetchone()
+    return r["count"] if r else 0
+
+def count_ai_search(email):
+    db().execute("""INSERT INTO ai_usage (email, day, count) VALUES (?,?,1)
+                    ON CONFLICT(email, day) DO UPDATE SET count = count + 1""", (email, time.strftime("%Y-%m-%d")))
+    db().commit()
+
+def ai_left():
+    return None if is_staff() else max(0, AI_SEARCHES_PER_DAY - ai_searches_used_today(session["email"]))
+
 @app.post("/api/search")
 @signed_in()
 def search():
-    q = (request.get_json(force=True).get("q") or "").strip()[:800]
+    """Keyword search by default (free). With {"ai": true}, Claude searches the whole shelf, on request only."""
+    body = request.get_json(force=True)
+    q = (body.get("q") or "").strip()[:800]
+    use_ai = bool(body.get("ai"))
     items = db().execute("SELECT * FROM items WHERE status='available' ORDER BY found_at DESC LIMIT 300").fetchall()
+    base = {"aiAvailable": bool(claude()), "aiLeft": ai_left() if claude() else 0}
     if not q or not items:
-        return jsonify(matches=[], note="")
-    if claude():
-        catalog = [{"id": r["id"], "title": r["title"], "category": r["category"], "color": r["color"], "brand": r["brand"],
-                    "details": (r["description"] or "")[:280], "keywords": json.loads(r["keywords"] or "[]")[:14],
-                    "found_where": r["found_where"], "found_on": time.strftime("%Y-%m-%d", time.localtime(r["found_at"] / 1000))}
-                   for r in items]
-        prompt = f'''A student is looking for something they lost at school. Their description:
+        return jsonify(matches=[], note="", mode="keyword", **base)
+    if not use_ai or not claude():
+        return jsonify(matches=keyword_search(q, items), note="Word matches", mode="keyword", **base)
+
+    key = (normalize_query(q), shelf_version())
+    if key in _ai_cache:
+        return jsonify(matches=_ai_cache[key], note="Matched by AI from your description", mode="ai", **base)
+    if base["aiLeft"] == 0:
+        return jsonify(error=f"You've used today's {AI_SEARCHES_PER_DAY} AI searches. Try again tomorrow, or ask the office."), 429
+
+    catalog = [{"id": r["id"], "title": r["title"], "category": r["category"], "color": r["color"], "brand": r["brand"],
+                "details": (r["description"] or "")[:280], "keywords": json.loads(r["keywords"] or "[]")[:14],
+                "found_where": r["found_where"], "found_on": time.strftime("%Y-%m-%d", time.localtime(r["found_at"] / 1000))}
+               for r in items]
+    prompt = f'''A student is looking for something they lost at school. Their description:
 """{q}"""
 Items currently in the lost and found (JSON):
 {json.dumps(catalog)}
@@ -337,15 +419,20 @@ Pick the items that could plausibly be theirs, best first, at most 6. Treat syno
 Leave out items of a clearly different type or color.
 JSON shape: {{"matches": [{{"id": "item id", "confidence": "high|medium|low", "reason": "one short sentence to the student"}}]}}
 Use an empty list if nothing fits.'''
-        try:
-            out = ask_claude_json(prompt)
-            ids = {r["id"] for r in items}
-            matches = [{"id": str(m["id"]), "confidence": m.get("confidence") if m.get("confidence") in ("high", "medium", "low") else "low",
-                        "reason": str(m.get("reason", ""))[:220]} for m in out.get("matches", []) if str(m.get("id")) in ids][:8]
-            return jsonify(matches=matches, note="Matched by AI from your description")
-        except Exception:
-            return jsonify(matches=keyword_search(q, items), note="AI couldn't answer this time. These are keyword matches.")
-    return jsonify(matches=keyword_search(q, items), note="Keyword matches")
+    try:
+        out = ask_claude_json(prompt)
+    except Exception:
+        return jsonify(error="AI search isn't working right now. Try again in a minute."), 502
+    ids = {r["id"] for r in items}
+    matches = [{"id": str(m["id"]), "confidence": m.get("confidence") if m.get("confidence") in ("high", "medium", "low") else "low",
+                "reason": str(m.get("reason", ""))[:220]} for m in out.get("matches", []) if str(m.get("id")) in ids][:8]
+    if len(_ai_cache) > 500:
+        _ai_cache.clear()
+    _ai_cache[key] = matches
+    if not is_staff():
+        count_ai_search(session["email"])
+    base["aiLeft"] = ai_left()
+    return jsonify(matches=matches, note="Matched by AI from your description", mode="ai", **base)
 
 @app.get("/api/claims/mine")
 @signed_in()

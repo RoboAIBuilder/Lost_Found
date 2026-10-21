@@ -113,6 +113,8 @@ textarea{resize:vertical;min-height:84px}
 .desc{color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .card .foot{margin-top:auto;padding:0 14px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.expand{margin-block:16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;border:1px dashed var(--line);border-radius:var(--r);padding:14px 16px;background:var(--surface)}
+.expand p{min-width:0;flex:1 1 260px}.expand .meta{display:block}
 .why{font-size:14px;background:var(--sunk);border-radius:8px;padding:8px 10px}
 .conf{display:inline-block;font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;padding:5px 7px;border-radius:5px;margin-right:6px;vertical-align:1px}
 .conf.high{background:var(--ok-bg);color:var(--ok)} .conf.medium{background:var(--warn-bg);color:var(--warn)} .conf.low{background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
@@ -232,6 +234,7 @@ textarea{resize:vertical;min-height:84px}
       <section id="resultsSec" hidden>
         <div class="sec-head"><h2>Possible matches</h2><p id="resultsNote"></p></div>
         <div id="results"></div>
+        <div class="expand" id="aiExpand" hidden></div>
       </section>
 
       <section id="myClaimsSec" hidden>
