@@ -1,0 +1,6 @@
+seed/photos
+seed/docs
+seed/*.json
+app/data
+artifact.html
+docs

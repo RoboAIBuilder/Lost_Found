@@ -5,3 +5,5 @@ seed/*.json
 app/data/
 app/.env
 .venv/
+.env
+.vercel

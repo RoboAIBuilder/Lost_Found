@@ -1,0 +1,2591 @@
+{
+ "items": [
+  {
+   "tag": "LF-8066",
+   "title": "Fitbit watch",
+   "category": "Electronics",
+   "color": "black",
+   "brand": "Fitbit",
+   "description": "Black Fitbit Inspire, band intact.",
+   "keywords": [
+    "watch",
+    "fitbit",
+    "fitness tracker",
+    "black"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 51.25,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9883",
+   "title": "Green Hydro Flask with name tape",
+   "category": "Water bottle",
+   "color": "green",
+   "brand": "Hydro Flask",
+   "description": "Green Hydro Flask, masking tape with 'MAYA' on the lid.",
+   "keywords": [
+    "hydroflask",
+    "green",
+    "name",
+    "maya"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Music room",
+   "status": "available",
+   "days_ago": 0.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2753",
+   "title": "Black gym shorts",
+   "category": "Other clothing",
+   "color": "black",
+   "brand": "Under Armour",
+   "description": "Black UA gym shorts.",
+   "keywords": [
+    "shorts",
+    "gym",
+    "black",
+    "under armour",
+    "pe"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 11.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8953",
+   "title": "Soccer ball with name on it",
+   "category": "Sports gear",
+   "color": "white, black",
+   "brand": "Adidas",
+   "description": "Size 5 soccer ball, 'CARLOS' written in marker between panels.",
+   "keywords": [
+    "soccer ball",
+    "ball",
+    "football",
+    "soccer",
+    "name",
+    "adidas"
+   ],
+   "location": "Gym office, cubby 3",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 38.333,
+   "returned_after_days": null,
+   "photos": [
+    "p31a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-9031",
+   "title": "Student ID on blue lanyard",
+   "category": "Keys / ID",
+   "color": "blue",
+   "brand": "",
+   "description": "Student ID card on a blue school lanyard.",
+   "keywords": [
+    "id",
+    "student id",
+    "lanyard",
+    "blue",
+    "badge"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Bus loop",
+   "status": "available",
+   "days_ago": 21.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4571",
+   "title": "Friendship bracelets",
+   "category": "Jewelry / accessory",
+   "color": "multi",
+   "brand": "",
+   "description": "Three braided string bracelets.",
+   "keywords": [
+    "bracelet",
+    "friendship",
+    "string"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 26.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4456",
+   "title": "Pink mini backpack",
+   "category": "Backpack / bag",
+   "color": "pink",
+   "brand": "",
+   "description": "Small pink backpack with a white circle patch. Gym sneakers inside.",
+   "keywords": [
+    "backpack",
+    "mini backpack",
+    "bag",
+    "pink",
+    "sneakers",
+    "gym bag"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Music room",
+   "status": "available",
+   "days_ago": 24.167,
+   "returned_after_days": null,
+   "photos": [
+    "p14a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-2330",
+   "title": "Mouthguard in case",
+   "category": "Sports gear",
+   "color": "clear",
+   "brand": "Shock Doctor",
+   "description": "Clear mouthguard in a blue case.",
+   "keywords": [
+    "mouthguard",
+    "sports",
+    "case"
+   ],
+   "location": "Gym office, cubby 3",
+   "found_where": "Gym bleachers",
+   "status": "available",
+   "days_ago": 41.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3662",
+   "title": "Red gym duffel",
+   "category": "Backpack / bag",
+   "color": "red",
+   "brand": "Adidas",
+   "description": "Small red Adidas duffel with cleats inside.",
+   "keywords": [
+    "duffel",
+    "gym bag",
+    "red",
+    "adidas",
+    "cleats"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 27.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8253",
+   "title": "Purple Owala bottle",
+   "category": "Water bottle",
+   "color": "purple",
+   "brand": "Owala",
+   "description": "Purple Owala, lid sticky.",
+   "keywords": [
+    "owala",
+    "purple",
+    "water bottle"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Auditorium",
+   "status": "available",
+   "days_ago": 28.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5061",
+   "title": "Navy Yankees cap",
+   "category": "Other clothing",
+   "color": "navy",
+   "brand": "New Era",
+   "description": "Navy NY Yankees baseball cap, adjustable strap.",
+   "keywords": [
+    "hat",
+    "cap",
+    "baseball cap",
+    "yankees",
+    "navy",
+    "ny"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Auditorium",
+   "status": "available",
+   "days_ago": 3.375,
+   "returned_after_days": null,
+   "photos": [
+    "p28a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-5526",
+   "title": "Reusable lunch fork set",
+   "category": "Other",
+   "color": "green",
+   "brand": "",
+   "description": "Green travel utensil set.",
+   "keywords": [
+    "fork",
+    "spoon",
+    "utensils",
+    "green"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 8.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2684",
+   "title": "Green tote bag",
+   "category": "Backpack / bag",
+   "color": "green",
+   "brand": "",
+   "description": "Canvas tote from the book fair.",
+   "keywords": [
+    "tote",
+    "bag",
+    "green",
+    "book fair"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 27.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3143",
+   "title": "Red PE shirt",
+   "category": "Other clothing",
+   "color": "red",
+   "brand": "",
+   "description": "Red school PE t-shirt, size M, name smudged on tag.",
+   "keywords": [
+    "pe shirt",
+    "gym shirt",
+    "t-shirt",
+    "red"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 19.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8956",
+   "title": "Lacrosse stick",
+   "category": "Sports gear",
+   "color": "white",
+   "brand": "STX",
+   "description": "White STX lacrosse stick.",
+   "keywords": [
+    "lacrosse",
+    "stick",
+    "stx"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "",
+   "status": "returned",
+   "days_ago": 21.125,
+   "returned_after_days": 6.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-5050",
+   "title": "Pack of colored pencils",
+   "category": "School supplies",
+   "color": "multi",
+   "brand": "Crayola",
+   "description": "24-pack Crayola colored pencils in a tin.",
+   "keywords": [
+    "colored pencils",
+    "crayola",
+    "art"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 47.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2188",
+   "title": "White Champion hoodie",
+   "category": "Jacket / hoodie",
+   "color": "white",
+   "brand": "Champion",
+   "description": "White Champion hoodie, ink stain on sleeve.",
+   "keywords": [
+    "hoodie",
+    "champion",
+    "white",
+    "sweatshirt",
+    "stain"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 69.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-7046",
+   "title": "Lip balm",
+   "category": "Other",
+   "color": "pink",
+   "brand": "",
+   "description": "Pink lip balm tube.",
+   "keywords": [
+    "chapstick",
+    "lip balm",
+    "pink"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 23.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2976",
+   "title": "Blue water bottle, no lid",
+   "category": "Water bottle",
+   "color": "blue",
+   "brand": "",
+   "description": "Blue metal bottle, lid missing.",
+   "keywords": [
+    "water bottle",
+    "blue",
+    "no lid"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Bus loop",
+   "status": "available",
+   "days_ago": 11.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5905",
+   "title": "Gray sweatpants",
+   "category": "Other clothing",
+   "color": "gray",
+   "brand": "Nike",
+   "description": "Gray Nike joggers, size M.",
+   "keywords": [
+    "sweatpants",
+    "joggers",
+    "pants",
+    "gray",
+    "nike"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "",
+   "status": "available",
+   "days_ago": 14.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8613",
+   "title": "Retainer case",
+   "category": "Other",
+   "color": "blue",
+   "brand": "",
+   "description": "Blue retainer case. Empty.",
+   "keywords": [
+    "retainer",
+    "case",
+    "blue",
+    "orthodontic"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Music room",
+   "status": "available",
+   "days_ago": 24.25,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4502",
+   "title": "Teal Contigo bottle",
+   "category": "Water bottle",
+   "color": "teal",
+   "brand": "Contigo",
+   "description": "Teal Contigo with flip spout, lid cracked.",
+   "keywords": [
+    "contigo",
+    "teal",
+    "water bottle"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 13.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3068",
+   "title": "Gray Stanley tumbler",
+   "category": "Water bottle",
+   "color": "gray",
+   "brand": "Stanley",
+   "description": "Gray Stanley 30 oz with straw.",
+   "keywords": [
+    "stanley",
+    "gray",
+    "tumbler",
+    "cup"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 10.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3615",
+   "title": "Purple bottle with star sticker",
+   "category": "Water bottle",
+   "color": "purple",
+   "brand": "Simple Modern",
+   "description": "Purple Simple Modern bottle with a yellow star sticker and a chip in the paint near the lid.",
+   "keywords": [
+    "water bottle",
+    "purple",
+    "star",
+    "sticker",
+    "simple modern"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 11.125,
+   "returned_after_days": null,
+   "photos": [
+    "p05a.jpg",
+    "p05b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-2796",
+   "title": "White TI-84 calculator",
+   "category": "Calculator",
+   "color": "white",
+   "brand": "Texas Instruments",
+   "description": "White TI-84 Plus CE, no case, small crack in the screen corner.",
+   "keywords": [
+    "calculator",
+    "ti-84",
+    "graphing",
+    "white",
+    "cracked"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 25.083,
+   "returned_after_days": null,
+   "photos": [
+    "p18a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-4733",
+   "title": "Orange Under Armour hoodie",
+   "category": "Jacket / hoodie",
+   "color": "orange",
+   "brand": "Under Armour",
+   "description": "Bright orange Under Armour hoodie, youth L.",
+   "keywords": [
+    "hoodie",
+    "sweatshirt",
+    "orange",
+    "under armour",
+    "ua"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 12.083,
+   "returned_after_days": null,
+   "photos": [
+    "p09a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-9947",
+   "title": "Black cleats, size 7",
+   "category": "Sports gear",
+   "color": "black",
+   "brand": "Adidas",
+   "description": "Black Adidas soccer cleats, size 7.",
+   "keywords": [
+    "cleats",
+    "shoes",
+    "soccer",
+    "adidas",
+    "black"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 24.167,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2679",
+   "title": "Pink Stanley tumbler",
+   "category": "Water bottle",
+   "color": "pink",
+   "brand": "Stanley",
+   "description": "40 oz pink Stanley with white lid, straw missing.",
+   "keywords": [
+    "stanley",
+    "cup",
+    "tumbler",
+    "bottle",
+    "pink",
+    "straw"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Gym bleachers",
+   "status": "available",
+   "days_ago": 10.292,
+   "returned_after_days": null,
+   "photos": [
+    "p02a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-9727",
+   "title": "White over-ear headphones",
+   "category": "Electronics",
+   "color": "white",
+   "brand": "Beats",
+   "description": "White Beats Solo over-ear headphones, no case.",
+   "keywords": [
+    "headphones",
+    "beats",
+    "white",
+    "over ear",
+    "headset"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 17.375,
+   "returned_after_days": null,
+   "photos": [
+    "p25a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-7482",
+   "title": "Purple lunch box with yellow dots",
+   "category": "Lunch box",
+   "color": "purple",
+   "brand": "PackIt",
+   "description": "Purple insulated lunch box with yellow polka dots. Empty ice pack inside.",
+   "keywords": [
+    "lunch box",
+    "lunchbox",
+    "lunch bag",
+    "purple",
+    "polka dots",
+    "ice pack"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Bus loop",
+   "status": "available",
+   "days_ago": 29.125,
+   "returned_after_days": null,
+   "photos": [
+    "p15a.jpg",
+    "p15b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-5033",
+   "title": "Light pink fleece",
+   "category": "Jacket / hoodie",
+   "color": "light pink",
+   "brand": "",
+   "description": "Pink half-zip fleece, size S.",
+   "keywords": [
+    "fleece",
+    "pink",
+    "sweater",
+    "half zip"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 32.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4138",
+   "title": "Navy hoodie, no logo",
+   "category": "Jacket / hoodie",
+   "color": "navy",
+   "brand": "",
+   "description": "Plain navy pullover, youth S.",
+   "keywords": [
+    "hoodie",
+    "navy",
+    "sweatshirt",
+    "plain"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Cafeteria",
+   "status": "available",
+   "days_ago": 3.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5930",
+   "title": "TI-84 with green case",
+   "category": "Calculator",
+   "color": "black",
+   "brand": "Texas Instruments",
+   "description": "TI-84 Plus in a green slide-on case.",
+   "keywords": [
+    "calculator",
+    "ti-84",
+    "graphing",
+    "green case"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 6.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6559",
+   "title": "Yellow pencil case with pins",
+   "category": "School supplies",
+   "color": "yellow",
+   "brand": "",
+   "description": "Yellow zip pencil pouch with three enamel pins. Pencils, a ruler, and a pink eraser inside.",
+   "keywords": [
+    "pencil case",
+    "pouch",
+    "yellow",
+    "pins",
+    "pencils",
+    "supplies"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 12.167,
+   "returned_after_days": null,
+   "photos": [
+    "p34a.jpg",
+    "p34b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-1916",
+   "title": "Gray Herschel backpack",
+   "category": "Backpack / bag",
+   "color": "charcoal gray",
+   "brand": "Herschel",
+   "description": "Charcoal Herschel backpack, empty except for a gym shirt.",
+   "keywords": [
+    "backpack",
+    "bag",
+    "gray",
+    "grey",
+    "herschel",
+    "gym"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Cafeteria",
+   "status": "available",
+   "days_ago": 28.292,
+   "returned_after_days": null,
+   "photos": [
+    "p13a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-8633",
+   "title": "Volleyball",
+   "category": "Sports gear",
+   "color": "white, blue",
+   "brand": "Mikasa",
+   "description": "Mikasa volleyball, initials R.T.",
+   "keywords": [
+    "volleyball",
+    "ball",
+    "mikasa",
+    "initials"
+   ],
+   "location": "Gym office, cubby 3",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 15.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-1282",
+   "title": "Black umbrella",
+   "category": "Other",
+   "color": "black",
+   "brand": "Totes",
+   "description": "Compact black Totes umbrella.",
+   "keywords": [
+    "umbrella",
+    "black",
+    "totes",
+    "rain"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 19.167,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4492",
+   "title": "Black denim jacket",
+   "category": "Jacket / hoodie",
+   "color": "black",
+   "brand": "Levi's",
+   "description": "Black denim jacket with patches on the back.",
+   "keywords": [
+    "jean jacket",
+    "denim",
+    "black",
+    "levis",
+    "patches"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 19.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9702",
+   "title": "Black pencil case",
+   "category": "School supplies",
+   "color": "black",
+   "brand": "",
+   "description": "Black zip pencil case with gel pens.",
+   "keywords": [
+    "pencil case",
+    "pouch",
+    "black",
+    "pens"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 24.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2824",
+   "title": "Light blue Hydro Flask with soccer sticker",
+   "category": "Water bottle",
+   "color": "light blue",
+   "brand": "Hydro Flask",
+   "description": "32 oz light blue bottle with black lid. Green soccer ball sticker on the front, small dent near the bottom.",
+   "keywords": [
+    "water bottle",
+    "hydroflask",
+    "flask",
+    "bottle",
+    "blue",
+    "soccer",
+    "sticker",
+    "dent"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 0.167,
+   "returned_after_days": null,
+   "photos": [
+    "p01a.jpg",
+    "p01b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-7232",
+   "title": "Baseball glove",
+   "category": "Sports gear",
+   "color": "brown",
+   "brand": "Rawlings",
+   "description": "Brown Rawlings youth glove, left-handed thrower.",
+   "keywords": [
+    "glove",
+    "mitt",
+    "baseball",
+    "softball",
+    "rawlings"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 7.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2983",
+   "title": "Digital watch",
+   "category": "Jewelry / accessory",
+   "color": "black",
+   "brand": "Casio",
+   "description": "Black Casio digital watch.",
+   "keywords": [
+    "watch",
+    "casio",
+    "black",
+    "digital"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 24.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9751",
+   "title": "Single white sock",
+   "category": "Other clothing",
+   "color": "white",
+   "brand": "",
+   "description": "One white athletic sock from the locker room.",
+   "keywords": [
+    "sock",
+    "white"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 2.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-7484",
+   "title": "Blue rain jacket",
+   "category": "Jacket / hoodie",
+   "color": "blue",
+   "brand": "Columbia",
+   "description": "Blue Columbia rain shell with hood.",
+   "keywords": [
+    "rain jacket",
+    "raincoat",
+    "blue",
+    "columbia"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "",
+   "status": "available",
+   "days_ago": 2.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6930",
+   "title": "TI-84 Plus CE calculator",
+   "category": "Calculator",
+   "color": "black",
+   "brand": "Texas Instruments",
+   "description": "Black TI-84 Plus CE graphing calculator, initials J.M. in white paint marker on the back.",
+   "keywords": [
+    "calculator",
+    "ti-84",
+    "ti84",
+    "graphing",
+    "texas instruments",
+    "black",
+    "initials"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 17.083,
+   "returned_after_days": null,
+   "photos": [
+    "p17a.jpg",
+    "p17b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-5920",
+   "title": "Wired gaming headset",
+   "category": "Electronics",
+   "color": "green, black",
+   "brand": "Razer",
+   "description": "Green and black Razer headset.",
+   "keywords": [
+    "headset",
+    "headphones",
+    "razer",
+    "gaming",
+    "green"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 19.25,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6363",
+   "title": "Tortoiseshell glasses",
+   "category": "Glasses",
+   "color": "brown",
+   "brand": "",
+   "description": "Tortoiseshell frames in a black soft pouch.",
+   "keywords": [
+    "glasses",
+    "eyeglasses",
+    "tortoise",
+    "brown"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 22.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-1986",
+   "title": "Green zip-up jacket",
+   "category": "Jacket / hoodie",
+   "color": "green",
+   "brand": "The North Face",
+   "description": "Green North Face fleece zip-up.",
+   "keywords": [
+    "jacket",
+    "fleece",
+    "green",
+    "north face"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 9.167,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9976",
+   "title": "Ruler and protractor set",
+   "category": "School supplies",
+   "color": "clear",
+   "brand": "",
+   "description": "Clear plastic ruler and protractor.",
+   "keywords": [
+    "ruler",
+    "protractor",
+    "math",
+    "geometry"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 29.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6279",
+   "title": "Library book: Wonder",
+   "category": "Book / notebook",
+   "color": "various",
+   "brand": "",
+   "description": "Wonder by R.J. Palacio, school library copy.",
+   "keywords": [
+    "book",
+    "library book",
+    "wonder",
+    "novel"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Front steps",
+   "status": "returned",
+   "days_ago": 7.375,
+   "returned_after_days": 4.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-5669",
+   "title": "Navy school fleece",
+   "category": "Jacket / hoodie",
+   "color": "navy",
+   "brand": "",
+   "description": "Navy fleece with school logo, youth L.",
+   "keywords": [
+    "fleece",
+    "navy",
+    "school",
+    "jacket"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 2.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9645",
+   "title": "Black Skullcandy headphones",
+   "category": "Electronics",
+   "color": "black",
+   "brand": "Skullcandy",
+   "description": "Black Skullcandy wireless headphones, right ear cushion peeling.",
+   "keywords": [
+    "headphones",
+    "skullcandy",
+    "black",
+    "wireless",
+    "headset"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 13.375,
+   "returned_after_days": null,
+   "photos": [
+    "p26a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-8541",
+   "title": "Black lunch bag",
+   "category": "Lunch box",
+   "color": "black",
+   "brand": "",
+   "description": "Black insulated lunch bag with gray zipper.",
+   "keywords": [
+    "lunch bag",
+    "black",
+    "insulated"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 5.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8690",
+   "title": "Blue pencil case",
+   "category": "School supplies",
+   "color": "blue",
+   "brand": "",
+   "description": "Blue zip pencil case with markers.",
+   "keywords": [
+    "pencil case",
+    "blue",
+    "markers"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 7.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8749",
+   "title": "Basketball",
+   "category": "Sports gear",
+   "color": "orange",
+   "brand": "Spalding",
+   "description": "Spalding outdoor basketball, worn grip.",
+   "keywords": [
+    "basketball",
+    "ball",
+    "orange",
+    "spalding"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 12.083,
+   "returned_after_days": null,
+   "photos": [
+    "p32a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-6139",
+   "title": "School Chromebook charger",
+   "category": "Electronics",
+   "color": "black",
+   "brand": "Dell",
+   "description": "Black Dell USB-C laptop charger with school asset sticker.",
+   "keywords": [
+    "chromebook",
+    "charger",
+    "laptop",
+    "dell"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 6.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6107",
+   "title": "AirPods case with blue cover",
+   "category": "Electronics",
+   "color": "white, blue",
+   "brand": "Apple",
+   "description": "AirPods case in a light blue silicone cover. Only the left earbud is inside.",
+   "keywords": [
+    "airpods",
+    "earbuds",
+    "apple",
+    "case",
+    "blue",
+    "cover"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Cafeteria",
+   "status": "available",
+   "days_ago": 25.333,
+   "returned_after_days": null,
+   "photos": [
+    "p27a.jpg",
+    "p27b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-4180",
+   "title": "Black hoodie, size L",
+   "category": "Jacket / hoodie",
+   "color": "black",
+   "brand": "Nike",
+   "description": "Black Nike hoodie, adult L.",
+   "keywords": [
+    "hoodie",
+    "black",
+    "nike",
+    "large"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Room 108",
+   "status": "returned",
+   "days_ago": 4.208,
+   "returned_after_days": 3.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-7906",
+   "title": "Sunglasses",
+   "category": "Glasses",
+   "color": "black",
+   "brand": "Ray-Ban",
+   "description": "Black Ray-Ban style sunglasses.",
+   "keywords": [
+    "sunglasses",
+    "shades",
+    "black"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 28.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-1158",
+   "title": "Black beanie",
+   "category": "Other clothing",
+   "color": "black",
+   "brand": "Carhartt",
+   "description": "Black Carhartt beanie.",
+   "keywords": [
+    "beanie",
+    "hat",
+    "carhartt",
+    "black"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 1.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5333",
+   "title": "Gray school spirit hoodie",
+   "category": "Jacket / hoodie",
+   "color": "heather gray",
+   "brand": "",
+   "description": "Gray hoodie with red school spirit print, adult S. Cuffs a bit stretched.",
+   "keywords": [
+    "hoodie",
+    "sweatshirt",
+    "gray",
+    "grey",
+    "school",
+    "spirit",
+    "red"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Cafeteria",
+   "status": "available",
+   "days_ago": 59.083,
+   "returned_after_days": null,
+   "photos": [
+    "p07a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-1333",
+   "title": "Silver bracelet",
+   "category": "Jewelry / accessory",
+   "color": "silver",
+   "brand": "",
+   "description": "Thin silver chain bracelet with a heart charm.",
+   "keywords": [
+    "bracelet",
+    "jewelry",
+    "silver",
+    "heart"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Auditorium",
+   "status": "returned",
+   "days_ago": 9.333,
+   "returned_after_days": 1.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-5315",
+   "title": "Black composition notebook",
+   "category": "Book / notebook",
+   "color": "black and white",
+   "brand": "",
+   "description": "Marble composition notebook, ELA journal entries inside.",
+   "keywords": [
+    "notebook",
+    "composition",
+    "marble",
+    "black",
+    "ela",
+    "journal"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 41.083,
+   "returned_after_days": null,
+   "photos": [
+    "p21a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-4044",
+   "title": "Green camo hoodie",
+   "category": "Jacket / hoodie",
+   "color": "green camo",
+   "brand": "",
+   "description": "Camo pullover hoodie, youth M.",
+   "keywords": [
+    "hoodie",
+    "camo",
+    "green",
+    "sweatshirt"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "",
+   "status": "available",
+   "days_ago": 1.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-1832",
+   "title": "Pair of black gloves",
+   "category": "Other clothing",
+   "color": "black",
+   "brand": "",
+   "description": "Black knit gloves, touchscreen tips.",
+   "keywords": [
+    "gloves",
+    "black",
+    "winter"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 1.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9565",
+   "title": "Maroon cardigan",
+   "category": "Jacket / hoodie",
+   "color": "maroon",
+   "brand": "Old Navy",
+   "description": "Maroon button cardigan, adult XS.",
+   "keywords": [
+    "cardigan",
+    "sweater",
+    "maroon",
+    "old navy"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Room 214",
+   "status": "returned",
+   "days_ago": 5.25,
+   "returned_after_days": 5.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-5011",
+   "title": "Sketchbook",
+   "category": "Book / notebook",
+   "color": "black",
+   "brand": "Canson",
+   "description": "Black Canson sketchbook with anime drawings.",
+   "keywords": [
+    "sketchbook",
+    "drawing",
+    "art",
+    "black"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 24.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3503",
+   "title": "Shin guards",
+   "category": "Sports gear",
+   "color": "black",
+   "brand": "Nike",
+   "description": "Pair of black Nike shin guards.",
+   "keywords": [
+    "shin guards",
+    "soccer",
+    "nike",
+    "black"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 18.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-7528",
+   "title": "Pink thermos",
+   "category": "Lunch box",
+   "color": "pink",
+   "brand": "Thermos",
+   "description": "Pink Thermos food jar.",
+   "keywords": [
+    "thermos",
+    "pink",
+    "food jar",
+    "soup"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 5.25,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9548",
+   "title": "Single house key",
+   "category": "Keys / ID",
+   "color": "silver",
+   "brand": "",
+   "description": "One silver key with a green rubber cap.",
+   "keywords": [
+    "key",
+    "house key",
+    "silver",
+    "green"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 69.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4946",
+   "title": "House keys on red lanyard",
+   "category": "Keys / ID",
+   "color": "red",
+   "brand": "",
+   "description": "Two keys (one gold, one silver) on a red lanyard with a blue round charm.",
+   "keywords": [
+    "keys",
+    "key",
+    "lanyard",
+    "red",
+    "house key",
+    "charm"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 14.333,
+   "returned_after_days": null,
+   "photos": [
+    "p24a.jpg",
+    "p24b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-2235",
+   "title": "Blue Yeti tumbler",
+   "category": "Water bottle",
+   "color": "blue",
+   "brand": "Yeti",
+   "description": "Blue Yeti Rambler with magnetic slider lid.",
+   "keywords": [
+    "yeti",
+    "tumbler",
+    "cup",
+    "blue"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 7.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4673",
+   "title": "Clear-frame glasses",
+   "category": "Glasses",
+   "color": "clear",
+   "brand": "",
+   "description": "Clear plastic frames, no case.",
+   "keywords": [
+    "glasses",
+    "eyeglasses",
+    "clear"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Library",
+   "status": "returned",
+   "days_ago": 10.042,
+   "returned_after_days": 2.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-1727",
+   "title": "Red phone case (no phone)",
+   "category": "Electronics",
+   "color": "red",
+   "brand": "",
+   "description": "Red silicone iPhone case, empty.",
+   "keywords": [
+    "phone case",
+    "case",
+    "red",
+    "iphone"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 30.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2771",
+   "title": "Blue Bentgo box",
+   "category": "Lunch box",
+   "color": "blue",
+   "brand": "Bentgo",
+   "description": "Blue Bentgo bento container, leftover crackers.",
+   "keywords": [
+    "bentgo",
+    "bento",
+    "lunch box",
+    "blue"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 28.167,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6310",
+   "title": "Pink kids' glasses",
+   "category": "Glasses",
+   "color": "pink",
+   "brand": "",
+   "description": "Pink round frames, one nose pad loose.",
+   "keywords": [
+    "glasses",
+    "eyeglasses",
+    "pink",
+    "round"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Gym bleachers",
+   "status": "available",
+   "days_ago": 15.208,
+   "returned_after_days": null,
+   "photos": [
+    "p23a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-7071",
+   "title": "Scrunchie set",
+   "category": "Jewelry / accessory",
+   "color": "pink",
+   "brand": "",
+   "description": "Two pink velvet scrunchies.",
+   "keywords": [
+    "scrunchie",
+    "hair",
+    "pink"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 23.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5499",
+   "title": "Scientific compass",
+   "category": "School supplies",
+   "color": "silver",
+   "brand": "",
+   "description": "Metal drawing compass for geometry.",
+   "keywords": [
+    "compass",
+    "geometry",
+    "math"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 7.167,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4249",
+   "title": "Gold stud earring",
+   "category": "Jewelry / accessory",
+   "color": "gold",
+   "brand": "",
+   "description": "Single small gold stud earring.",
+   "keywords": [
+    "earring",
+    "gold",
+    "jewelry"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 1.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-2535",
+   "title": "Black Owala bottle with red lid",
+   "category": "Water bottle",
+   "color": "black, red",
+   "brand": "Owala",
+   "description": "Black Owala FreeSip with red lid. Red heart sticker; initials A.K. scratched on the bottom.",
+   "keywords": [
+    "owala",
+    "water bottle",
+    "black",
+    "red",
+    "heart",
+    "sticker",
+    "initials"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 62.042,
+   "returned_after_days": null,
+   "photos": [
+    "p03a.jpg",
+    "p03b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-7291",
+   "title": "Yellow spiral notebook",
+   "category": "Book / notebook",
+   "color": "yellow",
+   "brand": "Mead",
+   "description": "Yellow Mead notebook labeled 'Social Studies'.",
+   "keywords": [
+    "notebook",
+    "yellow",
+    "social studies",
+    "spiral"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 7.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4848",
+   "title": "Spanish workbook",
+   "category": "Book / notebook",
+   "color": "orange",
+   "brand": "",
+   "description": "Orange Spanish 1 workbook, partly filled in.",
+   "keywords": [
+    "workbook",
+    "spanish",
+    "orange",
+    "book"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Gym bleachers",
+   "status": "available",
+   "days_ago": 10.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-1514",
+   "title": "One white Nike sneaker, size 6",
+   "category": "Sports gear",
+   "color": "white",
+   "brand": "Nike",
+   "description": "Single white Nike Air Force 1, size 6, left foot. Black swoosh.",
+   "keywords": [
+    "shoe",
+    "sneaker",
+    "nike",
+    "white",
+    "air force",
+    "size 6",
+    "left"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 34.167,
+   "returned_after_days": null,
+   "photos": [
+    "p30a.jpg",
+    "p30b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-8573",
+   "title": "Blue JanSport backpack with keychain",
+   "category": "Backpack / bag",
+   "color": "blue",
+   "brand": "JanSport",
+   "description": "Royal blue JanSport with yellow smiley patch and a pink plush keychain. Has a math binder inside.",
+   "keywords": [
+    "backpack",
+    "bookbag",
+    "bag",
+    "blue",
+    "jansport",
+    "keychain",
+    "patch",
+    "binder"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Hallway B lockers",
+   "status": "available",
+   "days_ago": 70.167,
+   "returned_after_days": null,
+   "photos": [
+    "p12a.jpg",
+    "p12b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-9928",
+   "title": "Sage green water bottle",
+   "category": "Water bottle",
+   "color": "sage green",
+   "brand": "",
+   "description": "Plain sage green metal bottle, gray screw lid, no stickers.",
+   "keywords": [
+    "water bottle",
+    "green",
+    "metal",
+    "plain"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 58.208,
+   "returned_after_days": null,
+   "photos": [
+    "p04a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-7939",
+   "title": "Navy polka-dot umbrella",
+   "category": "Other",
+   "color": "navy",
+   "brand": "",
+   "description": "Compact navy umbrella with white dots, curved wooden handle.",
+   "keywords": [
+    "umbrella",
+    "navy",
+    "dots",
+    "rain"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 6.042,
+   "returned_after_days": null,
+   "photos": [
+    "p33a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-5082",
+   "title": "Green folder",
+   "category": "Book / notebook",
+   "color": "green",
+   "brand": "",
+   "description": "Green plastic folder with field trip permission slip.",
+   "keywords": [
+    "folder",
+    "green",
+    "permission slip"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 28.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9238",
+   "title": "Gray Adidas track jacket",
+   "category": "Jacket / hoodie",
+   "color": "gray",
+   "brand": "Adidas",
+   "description": "Gray Adidas zip track jacket, three white stripes.",
+   "keywords": [
+    "jacket",
+    "adidas",
+    "gray",
+    "track"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 14.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-7049",
+   "title": "White baseball cap",
+   "category": "Other clothing",
+   "color": "white",
+   "brand": "",
+   "description": "White cap with small embroidered palm tree.",
+   "keywords": [
+    "hat",
+    "cap",
+    "white",
+    "palm tree"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 23.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6514",
+   "title": "Navy Nike hoodie, size M",
+   "category": "Jacket / hoodie",
+   "color": "navy",
+   "brand": "Nike",
+   "description": "Navy pullover hoodie, youth M, white Nike logo on chest. Front pocket has a pencil inside.",
+   "keywords": [
+    "hoodie",
+    "sweatshirt",
+    "jacket",
+    "navy",
+    "blue",
+    "nike",
+    "medium",
+    "pullover"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Auditorium",
+   "status": "available",
+   "days_ago": 1.25,
+   "returned_after_days": null,
+   "photos": [
+    "p06a.jpg",
+    "p06b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-6419",
+   "title": "Rubik's cube",
+   "category": "Other",
+   "color": "multi",
+   "brand": "",
+   "description": "3x3 speed cube, stickerless.",
+   "keywords": [
+    "rubiks cube",
+    "cube",
+    "puzzle",
+    "toy"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 5.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5374",
+   "title": "Red puffer vest-style jacket",
+   "category": "Jacket / hoodie",
+   "color": "red",
+   "brand": "Columbia",
+   "description": "Red Columbia puffer, size M, hood zipped off.",
+   "keywords": [
+    "jacket",
+    "coat",
+    "puffer",
+    "red",
+    "columbia",
+    "winter"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Bus loop",
+   "status": "available",
+   "days_ago": 11.125,
+   "returned_after_days": null,
+   "photos": [
+    "p11a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-6325",
+   "title": "Stuffed animal keychain",
+   "category": "Other",
+   "color": "brown",
+   "brand": "",
+   "description": "Small brown teddy bear keychain.",
+   "keywords": [
+    "keychain",
+    "teddy bear",
+    "plush",
+    "brown"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 22.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-7548",
+   "title": "Black wired earbuds",
+   "category": "Electronics",
+   "color": "black",
+   "brand": "",
+   "description": "Black wired earbuds with 3.5 mm plug.",
+   "keywords": [
+    "earbuds",
+    "earphones",
+    "headphones",
+    "black",
+    "wired"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "",
+   "status": "available",
+   "days_ago": 28.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5844",
+   "title": "Gray Casio calculator",
+   "category": "Calculator",
+   "color": "gray",
+   "brand": "Casio",
+   "description": "Gray Casio fx-300 scientific calculator.",
+   "keywords": [
+    "calculator",
+    "casio",
+    "scientific",
+    "gray"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Auditorium",
+   "status": "available",
+   "days_ago": 17.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5279",
+   "title": "Phone charger cable",
+   "category": "Electronics",
+   "color": "white",
+   "brand": "",
+   "description": "White Lightning cable, 6 ft.",
+   "keywords": [
+    "charger",
+    "cable",
+    "lightning",
+    "iphone"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Hallway B lockers",
+   "status": "returned",
+   "days_ago": 2.083,
+   "returned_after_days": 2.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-7818",
+   "title": "Gray beanie",
+   "category": "Other clothing",
+   "color": "gray",
+   "brand": "",
+   "description": "Gray knit beanie.",
+   "keywords": [
+    "beanie",
+    "hat",
+    "gray"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Music room",
+   "status": "available",
+   "days_ago": 9.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6617",
+   "title": "Purple scarf",
+   "category": "Other clothing",
+   "color": "purple",
+   "brand": "",
+   "description": "Knit purple scarf with fringe.",
+   "keywords": [
+    "scarf",
+    "purple",
+    "knit"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Room 214",
+   "status": "available",
+   "days_ago": 3.375,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8022",
+   "title": "Tennis racket",
+   "category": "Sports gear",
+   "color": "blue",
+   "brand": "Wilson",
+   "description": "Blue Wilson junior racket, no cover.",
+   "keywords": [
+    "tennis",
+    "racket",
+    "wilson",
+    "blue"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 2.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5345",
+   "title": "White CamelBak bottle",
+   "category": "Water bottle",
+   "color": "white",
+   "brand": "CamelBak",
+   "description": "White CamelBak with bite valve.",
+   "keywords": [
+    "camelbak",
+    "white",
+    "water bottle"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 14.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3091",
+   "title": "Jump rope",
+   "category": "Sports gear",
+   "color": "red",
+   "brand": "",
+   "description": "Red speed jump rope.",
+   "keywords": [
+    "jump rope",
+    "rope",
+    "red",
+    "pe"
+   ],
+   "location": "Gym office, cubby 3",
+   "found_where": "Locker room",
+   "status": "available",
+   "days_ago": 23.042,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6442",
+   "title": "Tan crossbody bag",
+   "category": "Backpack / bag",
+   "color": "tan",
+   "brand": "",
+   "description": "Small tan crossbody with lip balm inside.",
+   "keywords": [
+    "purse",
+    "crossbody",
+    "bag",
+    "tan"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 12.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-5040",
+   "title": "Green lunch bag",
+   "category": "Lunch box",
+   "color": "green",
+   "brand": "L.L.Bean",
+   "description": "Dark green lunch bag, name tag slot is empty.",
+   "keywords": [
+    "lunch box",
+    "lunch bag",
+    "green",
+    "llbean"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 11.292,
+   "returned_after_days": null,
+   "photos": [
+    "p16a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-6974",
+   "title": "Black Nike backpack",
+   "category": "Backpack / bag",
+   "color": "black",
+   "brand": "Nike",
+   "description": "Black Nike Elemental backpack with water bottle pocket torn.",
+   "keywords": [
+    "backpack",
+    "nike",
+    "black",
+    "bag"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 29.167,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-1241",
+   "title": "Clear plastic Nalgene",
+   "category": "Water bottle",
+   "color": "clear",
+   "brand": "Nalgene",
+   "description": "Clear Nalgene with mountain stickers.",
+   "keywords": [
+    "nalgene",
+    "clear",
+    "plastic",
+    "stickers"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Music room",
+   "status": "available",
+   "days_ago": 1.292,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3780",
+   "title": "Blue binder",
+   "category": "Book / notebook",
+   "color": "blue",
+   "brand": "Five Star",
+   "description": "Blue 1.5 in binder with math worksheets.",
+   "keywords": [
+    "binder",
+    "blue",
+    "math",
+    "five star"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Playground",
+   "status": "returned",
+   "days_ago": 48.25,
+   "returned_after_days": 5.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-8827",
+   "title": "White wired earbuds",
+   "category": "Electronics",
+   "color": "white",
+   "brand": "Apple",
+   "description": "Apple wired EarPods.",
+   "keywords": [
+    "earbuds",
+    "earpods",
+    "apple",
+    "white",
+    "wired"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Auditorium",
+   "status": "available",
+   "days_ago": 28.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-3683",
+   "title": "Black hair clip",
+   "category": "Jewelry / accessory",
+   "color": "black",
+   "brand": "",
+   "description": "Large black claw clip.",
+   "keywords": [
+    "hair clip",
+    "claw clip",
+    "black"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Soccer field",
+   "status": "returned",
+   "days_ago": 4.208,
+   "returned_after_days": 6.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-7965",
+   "title": "Library book: Dog Man",
+   "category": "Book / notebook",
+   "color": "various",
+   "brand": "",
+   "description": "Dog Man book, library copy, cover bent.",
+   "keywords": [
+    "book",
+    "dog man",
+    "library book",
+    "graphic novel"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Art room",
+   "status": "available",
+   "days_ago": 74.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8973",
+   "title": "Black Stanley tumbler",
+   "category": "Water bottle",
+   "color": "black",
+   "brand": "Stanley",
+   "description": "Black 30 oz Stanley, scratched handle.",
+   "keywords": [
+    "stanley",
+    "tumbler",
+    "black",
+    "cup"
+   ],
+   "location": "Main office, shelf 2",
+   "found_where": "Room 108",
+   "status": "returned",
+   "days_ago": 2.042,
+   "returned_after_days": 6.0,
+   "photos": []
+  },
+  {
+   "tag": "LF-5397",
+   "title": "Bike lock key",
+   "category": "Keys / ID",
+   "color": "black",
+   "brand": "",
+   "description": "Small key on a ring with a bike lock tag.",
+   "keywords": [
+    "key",
+    "bike lock",
+    "ring"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 5.208,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-9317",
+   "title": "Black-frame glasses in blue case",
+   "category": "Glasses",
+   "color": "black",
+   "brand": "",
+   "description": "Black rectangular prescription glasses with a blue hard case.",
+   "keywords": [
+    "glasses",
+    "eyeglasses",
+    "spectacles",
+    "black",
+    "case",
+    "prescription"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Auditorium",
+   "status": "available",
+   "days_ago": 18.125,
+   "returned_after_days": null,
+   "photos": [
+    "p22a.jpg",
+    "p22b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-5803",
+   "title": "Black zip-up hoodie",
+   "category": "Jacket / hoodie",
+   "color": "black",
+   "brand": "",
+   "description": "Plain black zip hoodie, no logo, size S. Zipper pull missing.",
+   "keywords": [
+    "hoodie",
+    "sweatshirt",
+    "zip",
+    "black",
+    "plain",
+    "jacket"
+   ],
+   "location": "Main office, coat rack",
+   "found_where": "Gym bleachers",
+   "status": "available",
+   "days_ago": 25.167,
+   "returned_after_days": null,
+   "photos": [
+    "p08a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-8428",
+   "title": "Black North Face puffer jacket",
+   "category": "Jacket / hoodie",
+   "color": "black",
+   "brand": "The North Face",
+   "description": "Black puffer jacket, youth L. Gloves stuffed in the left pocket.",
+   "keywords": [
+    "jacket",
+    "coat",
+    "puffer",
+    "north face",
+    "black",
+    "winter",
+    "gloves"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Library",
+   "status": "available",
+   "days_ago": 10.25,
+   "returned_after_days": null,
+   "photos": [
+    "p10a.jpg",
+    "p10b.jpg"
+   ]
+  },
+  {
+   "tag": "LF-8668",
+   "title": "Blue TI-30XS scientific calculator",
+   "category": "Calculator",
+   "color": "blue",
+   "brand": "Texas Instruments",
+   "description": "Blue TI-30XS MultiView scientific calculator with slide cover.",
+   "keywords": [
+    "calculator",
+    "scientific",
+    "ti-30",
+    "blue",
+    "texas instruments"
+   ],
+   "location": "Nurse's office cabinet",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 8.083,
+   "returned_after_days": null,
+   "photos": [
+    "p19a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-7658",
+   "title": "Clarinet reed case",
+   "category": "Other",
+   "color": "black",
+   "brand": "",
+   "description": "Black reed case with three reeds.",
+   "keywords": [
+    "reed",
+    "clarinet",
+    "band",
+    "music"
+   ],
+   "location": "Main office, bin B",
+   "found_where": "Front steps",
+   "status": "available",
+   "days_ago": 23.333,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-8350",
+   "title": "White USB-C charger and cable",
+   "category": "Electronics",
+   "color": "white",
+   "brand": "Apple",
+   "description": "White Apple 20W USB-C charger with a 3 ft cable.",
+   "keywords": [
+    "charger",
+    "cable",
+    "usb-c",
+    "apple",
+    "white",
+    "phone charger"
+   ],
+   "location": "Main office, valuables drawer",
+   "found_where": "Playground",
+   "status": "available",
+   "days_ago": 2.333,
+   "returned_after_days": null,
+   "photos": [
+    "p35a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-1878",
+   "title": "Library book: Diary of a Wimpy Kid",
+   "category": "Book / notebook",
+   "color": "various",
+   "brand": "",
+   "description": "Diary of a Wimpy Kid #3, library copy.",
+   "keywords": [
+    "book",
+    "wimpy kid",
+    "library book"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Cafeteria",
+   "status": "available",
+   "days_ago": 2.083,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-6573",
+   "title": "Red Five Star science notebook",
+   "category": "Book / notebook",
+   "color": "red",
+   "brand": "Five Star",
+   "description": "Red spiral notebook labeled SCI 7, half full of lab notes.",
+   "keywords": [
+    "notebook",
+    "spiral",
+    "red",
+    "science",
+    "five star",
+    "sci 7"
+   ],
+   "location": "Library desk drawer",
+   "found_where": "Room 108",
+   "status": "available",
+   "days_ago": 1.333,
+   "returned_after_days": null,
+   "photos": [
+    "p20a.jpg"
+   ]
+  },
+  {
+   "tag": "LF-6238",
+   "title": "Clear pencil pouch",
+   "category": "School supplies",
+   "color": "clear",
+   "brand": "",
+   "description": "Clear pouch with highlighters.",
+   "keywords": [
+    "pencil case",
+    "highlighters",
+    "clear"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "Soccer field",
+   "status": "available",
+   "days_ago": 14.125,
+   "returned_after_days": null,
+   "photos": []
+  },
+  {
+   "tag": "LF-4608",
+   "title": "Red knit beanie with pom-pom",
+   "category": "Other clothing",
+   "color": "red",
+   "brand": "",
+   "description": "Red knit winter hat with white pom-pom.",
+   "keywords": [
+    "beanie",
+    "hat",
+    "winter hat",
+    "red",
+    "pom pom",
+    "knit"
+   ],
+   "location": "Main office, bin A",
+   "found_where": "",
+   "status": "available",
+   "days_ago": 0.167,
+   "returned_after_days": null,
+   "photos": [
+    "p29a.jpg"
+   ]
+  }
+ ],
+ "claims": [
+  {
+   "email": "ava.r@example.org",
+   "title": "Light blue Hydro Flask with soccer sticker",
+   "name": "Ava R.",
+   "grade": "7th, Room 214",
+   "proof": "It has a soccer ball sticker and a dent on the bottom from when I dropped it at practice.",
+   "hours_ago": 1
+  },
+  {
+   "email": "ethan.p@example.org",
+   "title": "Navy Nike hoodie, size M",
+   "name": "Ethan P.",
+   "grade": "6th, Room 108",
+   "proof": "Youth medium. I left a yellow pencil in the front pocket.",
+   "hours_ago": 2
+  },
+  {
+   "email": "jayden.m@example.org",
+   "title": "TI-84 Plus CE calculator",
+   "name": "Jayden M.",
+   "grade": "8th, Room 301",
+   "proof": "My initials J.M. are on the back in white marker.",
+   "hours_ago": 3
+  },
+  {
+   "email": "liam.k@example.org",
+   "title": "Navy Nike hoodie, size M",
+   "name": "Liam K.",
+   "grade": "6th, Room 110",
+   "proof": "It's navy and says Nike on it.",
+   "hours_ago": 4
+  }
+ ]
+}

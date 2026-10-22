@@ -162,6 +162,8 @@ function renderStaff(){
   const f = S.filter;
   const list = S.items.filter(i => f==="all" ? true : f==="returned" ? i.status==="returned" : f==="old" ? (i.status!=="returned" && age(i.found_at)>=30) : i.status!=="returned");
   $("#invNote").textContent = S.loaded ? `${list.length} item${list.length===1?"":"s"}` : "";
+  const db = $("#demoBtn"); db.hidden = !S.me.demo; db.disabled = !!S.demoBusy;
+  db.textContent = S.demoBusy ? "Loading demo data…" : S.confirmDemo ? "Replace demo items and claims?" : "Reset demo data";
   $("#inventory").innerHTML = !S.loaded ? `<div class="status"><span class="spin"></span>Loading items…</div>`
     : list.length ? `<div class="grid">${list.map(i=>cardHTML(i,{staff:true})).join("")}</div>`
     : `<div class="empty"><strong>${S.items.length ? "Nothing in this view" : "No items logged yet"}</strong>${S.items.length ? "Try another filter." : "Use Log an item to add the first one."}</div>`;
@@ -321,6 +323,7 @@ async function act(fn, ok){ try{ await fn(); if(ok) toast(ok); }catch(e){ toast(
 document.addEventListener("click", async e=>{
   const el = e.target.closest("[data-action]"); const a = el && el.dataset.action;
   if(a!=="delItem" && S.confirmDel){ S.confirmDel=null; if(!a) render(); }
+  if(a!=="demoReset" && S.confirmDemo){ S.confirmDemo=false; if(!a) render(); }
   if(!a) return;
   const id = el.dataset.id;
   switch(a){
@@ -340,6 +343,12 @@ document.addEventListener("click", async e=>{
     case "saveLoc": { const v=$("#loc-"+CSS.escape(id)).value.trim(); S.editing=null; render(); if(v) act(()=>api(`/api/items/${id}`,{method:"PATCH",json:{location:v}}),"Storage spot updated."); break; }
     case "markReturned": act(()=>api(`/api/items/${id}`,{method:"PATCH",json:{status:"returned"}}),"Marked returned."); break;
     case "markAvail": act(()=>api(`/api/items/${id}`,{method:"PATCH",json:{status:"available"}}),"Back on the shelf."); break;
+    case "demoReset":
+      if(!S.confirmDemo){ S.confirmDemo=true; render(); break; }
+      S.confirmDemo=false; S.demoBusy=true; render();
+      try{ const r = await api("/api/demo/reset",{method:"POST"}); toast(`Loaded ${r.items} demo items and ${r.claims} claims.`); }
+      catch(e){ toast(e.message); }
+      S.demoBusy=false; loadAll(); break;
     case "delItem":
       if(S.confirmDel!==id){ S.confirmDel=id; render(); break; }
       S.confirmDel=null; act(()=>api(`/api/items/${id}`,{method:"DELETE"}),"Item deleted."); break;

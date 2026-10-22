@@ -10,9 +10,11 @@ The repo has two versions of the same app:
 
 | Folder | What it is |
 |---|---|
-| `app/` | **The school version.** Python (Flask) + SQLite + Google sign-in + Claude API. Runs on any server. |
+| `app/` | **The school version's server.** Python (Flask) + Google sign-in + Claude API. SQLite and a photo folder on your computer; Postgres and Vercel Blob on Vercel. |
+| `public/` | The page, its script (`app.js`) and the help page. |
 | `artifact.html` | The prototype, which runs only inside Claude as an Artifact. |
-| `seed/` | Scripts that generate 121 mock middle-school items with drawn photos, for demos. |
+| `app/demo_data/` | The demo set: 121 middle-school items, 48 drawn photos, 4 claims. |
+| `seed/` | Scripts that generate the demo set (`python seed/export_demo.py`). |
 | `docs/pitch.html` | One-page pitch: features, AI cost, privacy and where it fits. Open it in a browser. |
 
 **User guide:** the app has a built-in **How it works** page at `/help`, linked from the header and the sign-in screen. It covers finding and claiming an item, logging items, reviewing claims, and common questions.
@@ -110,20 +112,39 @@ If students and staff are on different domains, list both, e.g. `ALLOWED_DOMAINS
 
 ---
 
-## Put it online for a school
+## Put it online
 
-Any host that runs Python and keeps files on disk works. The database (`data/lostfound.db`) and photos (`data/photos/`) live in `app/data/`, or wherever `DATA_DIR` points.
+### Vercel (recommended)
 
-- **Render, Railway or Fly.io:** start command `gunicorn -w 2 -b 0.0.0.0:$PORT app:app`, plus a persistent disk mounted at `DATA_DIR`.
+Vercel runs `app/app.py` as a serverless function and serves `public/` from its CDN. Its disk is temporary, so data goes to a Postgres database and photos to a private Blob store.
+
+1. **Import the repo.** In Vercel, go to **Add New → Project** and import this repo. Keep the root directory as the repo root and the framework preset as detected. Don't deploy yet, or let the first deploy fail.
+2. **Add a database.** In the project, go to **Storage → Create → Neon (Postgres)** and connect it to the project. It sets `DATABASE_URL`.
+3. **Add photo storage.** Go to **Storage → Create → Blob**, set access to **Private**, and connect it. It sets `BLOB_STORE_ID` (and a read-write token).
+4. **Add environment variables** under **Settings → Environment Variables**:
+   - `SECRET_KEY`: a long random string, like the output of `python -c "import secrets; print(secrets.token_hex(32))"`
+   - **Demo:** `DEV_LOGIN=1` for the demo sign-in buttons. Anyone with the link can act as staff, so use demo data only.
+   - **School:** `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `ALLOWED_DOMAINS`, `STAFF_EMAILS`, with `DEV_LOGIN` unset. Add `https://<your-domain>/auth/callback` as a redirect URI in Google.
+   - Optional: `ANTHROPIC_API_KEY` for AI, `AI_SEARCHES_PER_DAY`.
+5. **Deploy** (or **Redeploy** under Deployments).
+6. **Load demo data.** In test mode, sign in as **Office staff**, open **Inventory** and click **Reset demo data**.
+
+If something is missing, every page shows a short "isn't set up yet" list naming what to add.
+
+### Other hosts
+
+Any host that runs Python and keeps files on disk works. Without `DATABASE_URL` and Blob, the database (`lostfound.db`) and photos (`photos/`) live in `app/data/`, or wherever `DATA_DIR` points.
+
+- **Render, Railway or Fly.io:** start command `cd app && gunicorn -w 2 -b 0.0.0.0:$PORT app:app`, plus a persistent disk mounted at `DATA_DIR`.
 - **A school or district server:** run the same gunicorn command behind nginx with HTTPS.
 
 Checklist before going live:
 - `DEV_LOGIN=0`
 - A long random `SECRET_KEY`
 - HTTPS on (Google sign-in requires it)
-- `app/data/` backed up
+- Data backed up: `app/data/`, or the Postgres database and Blob store on Vercel
 
-**Cost:** hosting is usually under $10 a month. AI costs are in **What it costs** above.
+**Cost:** a demo fits Vercel's and Neon's free plans. A school in production likely needs a paid Vercel plan, since the free Hobby plan is for personal, non-commercial use. Other hosts are usually under $10 a month. AI costs are in **What it costs** above.
 
 ---
 

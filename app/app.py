@@ -1,22 +1,45 @@
 """Lost & Found Desk: a school lost-and-found app.
 
-Flask + SQLite + Google sign-in + Claude API. One file on purpose.
+Flask + Google sign-in + Claude API. One file on purpose.
+Storage: SQLite + a photo folder on your computer; Postgres + Vercel Blob when deployed on Vercel.
 Run:  python app.py      (reads settings from .env, see .env.example)
 """
-import base64, io, json, os, re, secrets, sqlite3, time, uuid
+import base64, io, json, os, re, secrets, sqlite3, sys, time, uuid
 from functools import wraps
 
 from dotenv import load_dotenv
-from flask import Flask, abort, g, jsonify, redirect, request, send_from_directory, session, url_for
+from flask import Flask, Response, abort, g, jsonify, redirect, request, send_from_directory, session, url_for
 from PIL import Image, ImageOps
 
 load_dotenv()
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)   # so `import demo` works wherever the app is started from
+PUBLIC_DIR = os.path.join(os.path.dirname(HERE), "public")   # the page, its script and the help page
+ON_VERCEL = os.environ.get("VERCEL") == "1"
+
+# Database: Postgres when DATABASE_URL (or POSTGRES_URL) is set, otherwise a local SQLite file.
+DATABASE_URL = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or ""
+USE_PG = DATABASE_URL.startswith(("postgres://", "postgresql://"))
+# Photos: a private Vercel Blob store when one is connected, otherwise a local folder.
+USE_BLOB = bool(os.environ.get("BLOB_READ_WRITE_TOKEN") or os.environ.get("BLOB_STORE_ID"))
+BLOB_ACCESS = os.environ.get("BLOB_ACCESS", "private")
+
 DATA_DIR = os.environ.get("DATA_DIR", os.path.join(HERE, "data"))
 PHOTO_DIR = os.path.join(DATA_DIR, "photos")
 DB_PATH = os.path.join(DATA_DIR, "lostfound.db")
-os.makedirs(PHOTO_DIR, exist_ok=True)
+if not ON_VERCEL:
+    os.makedirs(PHOTO_DIR, exist_ok=True)
+
+# Vercel's disk is read-only and every request may land on a different server, so these are required there.
+CONFIG_PROBLEMS = []
+if ON_VERCEL:
+    if not os.environ.get("SECRET_KEY"):
+        CONFIG_PROBLEMS.append("Add a SECRET_KEY environment variable: a long random string that signs login cookies.")
+    if not USE_PG:
+        CONFIG_PROBLEMS.append("Connect a Postgres database (project Storage tab, Neon). It sets DATABASE_URL.")
+    if not USE_BLOB:
+        CONFIG_PROBLEMS.append("Connect a private Blob store (project Storage tab, Blob). It sets BLOB_STORE_ID.")
 
 def env_list(name):
     return [x.strip().lower() for x in os.environ.get(name, "").split(",") if x.strip()]
@@ -31,34 +54,67 @@ CATEGORIES = ["Water bottle", "Jacket / hoodie", "Other clothing", "Backpack / b
               "Calculator", "Book / notebook", "School supplies", "Sports gear", "Glasses", "Jewelry / accessory",
               "Keys / ID", "Other"]
 
-app = Flask(__name__, static_folder="static")
+app = Flask(__name__, static_folder=None)
 app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
 app.config.update(
-    MAX_CONTENT_LENGTH=40 * 1024 * 1024,
+    MAX_CONTENT_LENGTH=20 * 1024 * 1024,   # Vercel caps a request at 4.5 MB; photos are shrunk in the browser first
     SESSION_COOKIE_SAMESITE="Lax",
     SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SECURE=os.environ.get("HTTPS", "1") == "1" and not DEV_LOGIN,
+    SESSION_COOKIE_SECURE=ON_VERCEL or (os.environ.get("HTTPS", "1") == "1" and not DEV_LOGIN),
 )
 
+@app.before_request
+def config_check():
+    if CONFIG_PROBLEMS:
+        items = "".join(f"<li>{p}</li>" for p in CONFIG_PROBLEMS)
+        return (f"<h1>Lost &amp; Found Desk isn't set up yet</h1><ul>{items}</ul>"
+                "<p>Fix these in the Vercel project settings, then redeploy.</p>"), 503
+
 # ---------------------------------------------------------------- database
+# Same tables in both databases. {ID} and {BIG} are filled in per database.
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS items (
   id TEXT PRIMARY KEY, tag TEXT UNIQUE, title TEXT, category TEXT, color TEXT, brand TEXT,
   description TEXT, keywords TEXT DEFAULT '[]', photos TEXT DEFAULT '[]',
-  location TEXT, found_where TEXT, found_at INTEGER, status TEXT DEFAULT 'available',
-  returned_at INTEGER, returned_to TEXT, logged_by TEXT, mock INTEGER DEFAULT 0);
+  location TEXT, found_where TEXT, found_at {BIG}, status TEXT DEFAULT 'available',
+  returned_at {BIG}, returned_to TEXT, logged_by TEXT, mock INTEGER DEFAULT 0);
 CREATE TABLE IF NOT EXISTS claims (
-  id INTEGER PRIMARY KEY AUTOINCREMENT, item_id TEXT, student_email TEXT, name TEXT, grade TEXT,
-  proof TEXT, status TEXT DEFAULT 'pending', note TEXT, created_at INTEGER, decided_at INTEGER,
+  id {ID}, item_id TEXT, student_email TEXT, name TEXT, grade TEXT,
+  proof TEXT, status TEXT DEFAULT 'pending', note TEXT, created_at {BIG}, decided_at {BIG},
   mock INTEGER DEFAULT 0, UNIQUE(item_id, student_email));
-CREATE TABLE IF NOT EXISTS ai_usage (email TEXT, day TEXT, count INTEGER DEFAULT 0, PRIMARY KEY (email, day));
+CREATE TABLE IF NOT EXISTS ai_usage (email TEXT, day TEXT, count INTEGER DEFAULT 0, PRIMARY KEY (email, day))
 """
+
+if USE_PG:
+    import psycopg
+    from psycopg.rows import dict_row
+    DUPLICATE_ERRORS = (sqlite3.IntegrityError, psycopg.IntegrityError)
+else:
+    DUPLICATE_ERRORS = (sqlite3.IntegrityError,)
+
+class Postgres:
+    """Gives a Postgres connection the same small interface as sqlite3, so the queries below work on both."""
+    def __init__(self):
+        self.conn = psycopg.connect(DATABASE_URL, row_factory=dict_row)
+    def execute(self, sql, params=()):
+        return self.conn.execute(sql.replace("?", "%s"), params)
+    def executemany(self, sql, rows):
+        with self.conn.cursor() as cur:
+            cur.executemany(sql.replace("?", "%s"), rows)
+    def commit(self): self.conn.commit()
+    def rollback(self): self.conn.rollback()
+    def close(self): self.conn.close()
+
+def connect():
+    if USE_PG:
+        return Postgres()
+    c = sqlite3.connect(DB_PATH)
+    c.row_factory = sqlite3.Row
+    return c
 
 def db():
     if "db" not in g:
-        g.db = sqlite3.connect(DB_PATH)
-        g.db.row_factory = sqlite3.Row
-        g.db.execute("PRAGMA foreign_keys = ON")
+        g.db = connect()
     return g.db
 
 @app.teardown_appcontext
@@ -67,8 +123,21 @@ def close_db(_):
     if d: d.close()
 
 def init_db():
-    with sqlite3.connect(DB_PATH) as c:
-        c.executescript(SCHEMA)
+    if CONFIG_PROBLEMS:
+        return
+    schema = SCHEMA.format(ID="BIGSERIAL PRIMARY KEY" if USE_PG else "INTEGER PRIMARY KEY AUTOINCREMENT",
+                           BIG="BIGINT" if USE_PG else "INTEGER")
+    c = connect()
+    try:
+        for stmt in schema.split(";"):
+            if stmt.strip():
+                c.execute(stmt)
+        c.commit()
+    finally:
+        c.close()
+
+def row_values(r):
+    return list(r.values()) if isinstance(r, dict) else list(r)
 
 def now_ms():
     return int(time.time() * 1000)
@@ -256,13 +325,37 @@ def keyword_search(q, items):
              "reason": "Matches: " + ", ".join(h[:5])} for s, _, i, h in out[:8]]
 
 # ---------------------------------------------------------------- pages & photos
+# On Vercel these files are served straight from public/ (see vercel.json); these routes cover local runs.
 @app.get("/")
 def index():
-    return send_from_directory(app.static_folder, "index.html")
+    return send_from_directory(PUBLIC_DIR, "index.html")
 
 @app.get("/help")
 def help_page():
-    return send_from_directory(app.static_folder, "help.html")
+    return send_from_directory(PUBLIC_DIR, "help.html")
+
+@app.get("/<any('app.js', 'help.html', 'index.html'):name>")
+def public_file(name):
+    return send_from_directory(PUBLIC_DIR, name)
+
+# ---- photo storage: Vercel Blob when connected, else the local photos folder
+def store_photo(name, data):
+    if USE_BLOB:
+        from vercel.blob import sync as blob
+        blob.put_blob(f"photos/{name}", data, access=BLOB_ACCESS, content_type="image/jpeg", allow_overwrite=True)
+    else:
+        with open(os.path.join(PHOTO_DIR, name), "wb") as f:
+            f.write(data)
+
+def remove_photo(name):
+    try:
+        if USE_BLOB:
+            from vercel.blob import sync as blob
+            blob.delete_blob(f"photos/{name}")
+        else:
+            os.remove(os.path.join(PHOTO_DIR, name))
+    except Exception:
+        pass  # a photo that's already gone is fine
 
 @app.get("/photos/<name>")
 def photo(name):
@@ -270,7 +363,16 @@ def photo(name):
         abort(401)
     if not re.fullmatch(r"[0-9a-f]{32}\.jpg", name):
         abort(404)
-    return send_from_directory(PHOTO_DIR, name, max_age=86400)
+    if not USE_BLOB:
+        return send_from_directory(PHOTO_DIR, name, max_age=86400)
+    from vercel.blob import sync as blob
+    try:
+        body = blob.get_blob(f"photos/{name}", access=BLOB_ACCESS).body
+    except blob.BlobNotFoundError:
+        abort(404)
+    # names are random and never reused, so the browser may keep its copy for a day
+    return Response(body, mimetype="image/jpeg",
+                    headers={"Cache-Control": "private, max-age=86400", "X-Content-Type-Options": "nosniff"})
 
 def save_photo(file_storage):
     """Re-encode every upload: fixes rotation, shrinks it, and strips EXIF (including phone GPS)."""
@@ -279,8 +381,7 @@ def save_photo(file_storage):
     name = uuid.uuid4().hex + ".jpg"
     buf = io.BytesIO()
     img.save(buf, "JPEG", quality=85)
-    with open(os.path.join(PHOTO_DIR, name), "wb") as f:
-        f.write(buf.getvalue())
+    store_photo(name, buf.getvalue())
     return name, buf.getvalue()
 
 # ---------------------------------------------------------------- API
@@ -289,7 +390,7 @@ def me():
     if "email" not in session:
         return jsonify(signedIn=False, devLogin=DEV_LOGIN, googleLogin=bool(oauth))
     return jsonify(signedIn=True, email=session["email"], name=session["name"], role=session["role"],
-                   ai=bool(claude()), categories=CATEGORIES)
+                   ai=bool(claude()), categories=CATEGORIES, demo=DEV_LOGIN)
 
 @app.get("/api/items")
 @signed_in()
@@ -359,8 +460,7 @@ def delete_item(item_id):
     r = db().execute("SELECT photos FROM items WHERE id=?", (item_id,)).fetchone()
     if r:
         for p in json.loads(r["photos"] or "[]"):
-            try: os.remove(os.path.join(PHOTO_DIR, p))
-            except OSError: pass
+            remove_photo(p)
         db().execute("DELETE FROM claims WHERE item_id=?", (item_id,))
         db().execute("DELETE FROM items WHERE id=?", (item_id,))
         db().commit()
@@ -374,9 +474,10 @@ def normalize_query(q):
 
 def shelf_version():
     """Changes whenever an item is added, removed, returned or put back, so cached AI answers stay correct."""
-    r = db().execute("SELECT COUNT(*), COALESCE(MAX(found_at),0), COALESCE(SUM(status='returned'),0), "
-                     "COALESCE(MAX(returned_at),0) FROM items").fetchone()
-    return ":".join(str(x) for x in r)
+    r = db().execute("SELECT COUNT(*) AS n, COALESCE(MAX(found_at),0) AS newest, "
+                     "COALESCE(SUM(CASE WHEN status='returned' THEN 1 ELSE 0 END),0) AS returned, "
+                     "COALESCE(MAX(returned_at),0) AS last_return FROM items").fetchone()
+    return ":".join(str(x) for x in row_values(r))
 
 def ai_searches_used_today(email):
     r = db().execute("SELECT count FROM ai_usage WHERE email=? AND day=?", (email, time.strftime("%Y-%m-%d"))).fetchone()
@@ -384,7 +485,7 @@ def ai_searches_used_today(email):
 
 def count_ai_search(email):
     db().execute("""INSERT INTO ai_usage (email, day, count) VALUES (?,?,1)
-                    ON CONFLICT(email, day) DO UPDATE SET count = count + 1""", (email, time.strftime("%Y-%m-%d")))
+                    ON CONFLICT(email, day) DO UPDATE SET count = ai_usage.count + 1""", (email, time.strftime("%Y-%m-%d")))
     db().commit()
 
 def ai_left():
@@ -459,7 +560,8 @@ def create_claim():
         db().execute("""INSERT INTO claims (item_id, student_email, name, grade, proof, created_at) VALUES (?,?,?,?,?,?)""",
                      (it["id"], session["email"], name[:80], (b.get("grade") or "")[:60], proof[:600], now_ms()))
         db().commit()
-    except sqlite3.IntegrityError:
+    except DUPLICATE_ERRORS:
+        db().rollback()
         return jsonify(error="You already claimed this item."), 409
     return jsonify(ok=True)
 
@@ -496,6 +598,18 @@ def decide(claim_id):
         db().execute("UPDATE claims SET status='declined', decided_at=? WHERE id=?", (t, claim_id))
     db().commit()
     return jsonify(ok=True)
+
+# ---------------------------------------------------------------- demo data (test mode only)
+@app.post("/api/demo/reset")
+@signed_in(staff=True)
+def demo_reset():
+    """Replace the demo items and claims with a fresh set. Items staff logged themselves stay."""
+    if not DEV_LOGIN:
+        abort(404)
+    import demo
+    n_items, n_claims = demo.load(db(), store_photo, remove_photo)
+    _ai_cache.clear()
+    return jsonify(items=n_items, claims=n_claims)
 
 init_db()
 
