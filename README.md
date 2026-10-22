@@ -122,7 +122,7 @@ Vercel runs `app/app.py` as a serverless function and serves `public/` from its 
 2. **Add a database.** In the project, go to **Storage → Create → Neon (Postgres)** and connect it to the project. It sets `DATABASE_URL`.
 3. **Add photo storage.** Go to **Storage → Create → Blob**, set access to **Private**, and connect it. It sets `BLOB_STORE_ID` (and a read-write token).
 4. **Add environment variables** under **Settings → Environment Variables**:
-   - `SECRET_KEY`: a long random string, like the output of `python -c "import secrets; print(secrets.token_hex(32))"`
+   - `SECRET_KEY` is optional: without it, the app makes one on first start and keeps it in the database.
    - **Demo:** `DEV_LOGIN=1` for the demo sign-in buttons. Anyone with the link can act as staff, so use demo data only.
    - **School:** `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `ALLOWED_DOMAINS`, `STAFF_EMAILS`, with `DEV_LOGIN` unset. Add `https://<your-domain>/auth/callback` as a redirect URI in Google.
    - Optional: `ANTHROPIC_API_KEY` for AI, `AI_SEARCHES_PER_DAY`.
@@ -140,7 +140,7 @@ Any host that runs Python and keeps files on disk works. Without `DATABASE_URL` 
 
 Checklist before going live:
 - `DEV_LOGIN=0`
-- A long random `SECRET_KEY`
+- A `SECRET_KEY` set, or a database the app can store its own key in
 - HTTPS on (Google sign-in requires it)
 - Data backed up: `app/data/`, or the Postgres database and Blob store on Vercel
 

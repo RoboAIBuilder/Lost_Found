@@ -34,8 +34,6 @@ if not ON_VERCEL:
 # Vercel's disk is read-only and every request may land on a different server, so these are required there.
 CONFIG_PROBLEMS = []
 if ON_VERCEL:
-    if not os.environ.get("SECRET_KEY"):
-        CONFIG_PROBLEMS.append("Add a SECRET_KEY environment variable: a long random string that signs login cookies.")
     if not USE_PG:
         CONFIG_PROBLEMS.append("Connect a Postgres database (project Storage tab, Neon). It sets DATABASE_URL.")
     if not USE_BLOB:
@@ -82,7 +80,8 @@ CREATE TABLE IF NOT EXISTS claims (
   id {ID}, item_id TEXT, student_email TEXT, name TEXT, grade TEXT,
   proof TEXT, status TEXT DEFAULT 'pending', note TEXT, created_at {BIG}, decided_at {BIG},
   mock INTEGER DEFAULT 0, UNIQUE(item_id, student_email));
-CREATE TABLE IF NOT EXISTS ai_usage (email TEXT, day TEXT, count INTEGER DEFAULT 0, PRIMARY KEY (email, day))
+CREATE TABLE IF NOT EXISTS ai_usage (email TEXT, day TEXT, count INTEGER DEFAULT 0, PRIMARY KEY (email, day));
+CREATE TABLE IF NOT EXISTS app_settings (name TEXT PRIMARY KEY, value TEXT)
 """
 
 if USE_PG:
@@ -133,6 +132,20 @@ def init_db():
             if stmt.strip():
                 c.execute(stmt)
         c.commit()
+    finally:
+        c.close()
+
+def load_secret_key():
+    """The key that signs login cookies. SECRET_KEY wins if set; otherwise the app makes one on first start
+    and keeps it in the database, so every server and every restart signs cookies the same way."""
+    if os.environ.get("SECRET_KEY") or CONFIG_PROBLEMS:
+        return
+    c = connect()
+    try:
+        c.execute("INSERT INTO app_settings (name, value) VALUES (?, ?) ON CONFLICT (name) DO NOTHING",
+                  ("secret_key", secrets.token_hex(32)))
+        c.commit()
+        app.secret_key = c.execute("SELECT value FROM app_settings WHERE name=?", ("secret_key",)).fetchone()["value"]
     finally:
         c.close()
 
@@ -612,6 +625,7 @@ def demo_reset():
     return jsonify(items=n_items, claims=n_claims)
 
 init_db()
+load_secret_key()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=DEV_LOGIN)
