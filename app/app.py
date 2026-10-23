@@ -19,7 +19,8 @@ PUBLIC_DIR = os.path.join(os.path.dirname(HERE), "public")   # the page, its scr
 ON_VERCEL = os.environ.get("VERCEL") == "1"
 
 # Database: Postgres when DATABASE_URL (or POSTGRES_URL) is set, otherwise a local SQLite file.
-DATABASE_URL = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or ""
+# Neon on Vercel names it DATABASE_URL by default; STORAGE_URL / POSTGRES_URL cover other prefixes people pick.
+DATABASE_URL = (os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("STORAGE_URL") or "")
 USE_PG = DATABASE_URL.startswith(("postgres://", "postgresql://"))
 # Photos: a private Vercel Blob store when one is connected, otherwise a local folder.
 USE_BLOB = bool(os.environ.get("BLOB_READ_WRITE_TOKEN") or os.environ.get("BLOB_STORE_ID"))

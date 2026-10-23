@@ -16,6 +16,7 @@ The repo has two versions of the same app:
 | `app/demo_data/` | The demo set: 121 middle-school items, 48 drawn photos, 4 claims. |
 | `seed/` | Scripts that generate the demo set (`python seed/export_demo.py`). |
 | `docs/pitch.html` | One-page pitch: features, AI cost, privacy and where it fits. Open it in a browser. |
+| `docs/CODE_FLOW.md` | How the code works: architecture, request checks, sign-in, logging, search, claims, data model. |
 
 **User guide:** the app has a built-in **How it works** page at `/help`, linked from the header and the sign-in screen. It covers finding and claiming an item, logging items, reviewing claims, and common questions.
 
