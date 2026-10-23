@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lost &amp; Found Desk</title>
+<meta name="description" content="Find what you lost at school, or log what was turned in.">
+<meta name="theme-color" content="#16284A">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lost &amp; Found">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
@@ -51,7 +60,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 .wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
 /* band */
-.band{background:var(--band);color:var(--on-band)}
+.band{background:var(--band);color:var(--on-band);padding-top:env(safe-area-inset-top,0px)}
+.installhint{background:var(--tag);color:var(--on-tag)}
+.installhint .wrap{padding-block:10px;display:flex;gap:12px;align-items:center;justify-content:space-between;font-size:15px}
+.installhint b{font-weight:700}
+.installhint button{background:transparent;border:1px solid currentColor;color:inherit;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:14px;flex:none}
+.share-ico{display:inline-block;vertical-align:-3px}
 .band .wrap{padding-block:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:14px;min-width:0}
 .brand h1{font-size:clamp(24px,5vw,32px);font-weight:800;font-stretch:80%;letter-spacing:.01em;text-transform:uppercase}
@@ -187,12 +201,19 @@ textarea{resize:vertical;min-height:84px}
     </div>
     <div class="who">
       <span class="pill" id="rolePill">Loading</span>
+      <button class="ghost" id="installBtn" hidden>Install app</button>
       <button class="ghost" id="modeBtn" hidden>Preview student view</button>
       <a class="ghost" href="/help" style="text-decoration:none">How it works</a>
       <a class="ghost" id="signOut" href="/logout" hidden style="text-decoration:none">Sign out</a>
     </div>
   </div>
 </header>
+<div class="installhint" id="iosHint" hidden>
+  <div class="wrap">
+    <span>Add this app to your iPhone: tap <b>Share</b> <svg class="share-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-label="Share icon"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></svg> then <b>Add to Home Screen</b>.</span>
+    <button type="button" id="iosHintClose">Got it</button>
+  </div>
+</div>
 
 <main class="wrap" id="signin" hidden>
   <section class="signin">

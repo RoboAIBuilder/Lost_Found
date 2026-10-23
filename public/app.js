@@ -31,7 +31,15 @@ const isStaff = () => S.me && S.me.role==="staff";
 
 /* ---------- boot ---------- */
 async function boot(){
-  const me = await api("/api/me").catch(()=>null);
+  let me = null;
+  for(let attempt = 0; attempt < 2 && !me; attempt++){
+    try{ me = await api("/api/me"); }
+    catch(e){
+      if(!(e instanceof TypeError)) break;                                 // a server answer, not a lost connection
+      if(attempt === 1){ location.replace("/offline.html"); return; }      // still no connection after a retry
+      await new Promise(r => setTimeout(r, 1200));
+    }
+  }
   if(!me || !me.signedIn) return showSignIn(me || {});
   S.me = me; S.cats = me.categories || [];
   $("#fCat").innerHTML = S.cats.map(c=>`<option>${esc(c)}</option>`).join("");
@@ -56,7 +64,10 @@ async function loadAll(){
     const [items, mine, staff] = await Promise.all(jobs);
     S.items = items; S.myClaims = mine; S.staffClaims = staff || []; S.loaded = true;
     render();
-  }catch(e){ if(e.message!=="signed out") toast("Couldn't load items. Check your connection."); }
+  }catch(e){
+    if(e instanceof TypeError) toast("You're offline. The list will refresh when you reconnect.");
+    else if(e.message!=="signed out") toast("Couldn't load items. Try again in a moment.");
+  }
 }
 
 /* ---------- render ---------- */
@@ -368,6 +379,29 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ $("#claimModal").hidden=true; $("#lightbox").hidden=true; }
   if(e.key==="Enter" && e.target.id && e.target.id.startsWith("loc-")){ e.preventDefault(); const b=e.target.parentElement.querySelector("[data-action=saveLoc]"); b && b.click(); }
 });
+
+/* ---------- install as an app ---------- */
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+}
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+let installEvent = null;
+window.addEventListener("beforeinstallprompt", e=>{     // Android, Chrome, Edge, Chromebooks
+  e.preventDefault(); installEvent = e; $("#installBtn").hidden = false;
+});
+$("#installBtn").addEventListener("click", async ()=>{
+  if(!installEvent) return;
+  installEvent.prompt();
+  await installEvent.userChoice.catch(()=>{});
+  installEvent = null; $("#installBtn").hidden = true;
+});
+window.addEventListener("online", ()=>{ if(S.me) loadAll(); });
+window.addEventListener("appinstalled", ()=>{ $("#installBtn").hidden = true; toast("Installed. Open it from your home screen."); });
+// iPhone and iPad Safari have no install button, so show the two steps once
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+let hintSeen = false; try{ hintSeen = localStorage.getItem("lf-ios-hint") === "1"; }catch{}
+if(isIOS && !standalone && !hintSeen) $("#iosHint").hidden = false;
+$("#iosHintClose").addEventListener("click", ()=>{ $("#iosHint").hidden = true; try{ localStorage.setItem("lf-ios-hint","1"); }catch{} });
 
 boot();
 })();

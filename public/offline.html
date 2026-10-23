@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#16284A">
+<title>Offline · Lost &amp; Found Desk</title>
+<style>
+:root{--band:#16284A;--on-band:#F4F6FB;--muted:#B3BFD6;--tag:#F6BE1A}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--band);color:var(--on-band);font:17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;
+  display:grid;place-items:center;text-align:center;
+  padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}
+main{max-width:360px;display:grid;gap:16px;justify-items:center}
+img{width:96px;height:96px;border-radius:22px}
+h1{margin:0;font-size:26px}
+p{margin:0;color:var(--muted)}
+button{margin-top:8px;background:var(--tag);color:#2B2000;border:0;border-radius:10px;padding:12px 22px;font:700 16px system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+  <img src="/icons/icon-192.png" alt="">
+  <h1>You're offline</h1>
+  <p>Lost &amp; Found Desk needs a connection to search the shelf and send claims. Connect to Wi-Fi or data, then try again.</p>
+  <button type="button" onclick="location.href='/'">Try again</button>
+</main>
+</body>
+</html>

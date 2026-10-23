@@ -18,6 +18,8 @@ The repo has two versions of the same app:
 | `docs/pitch.html` | One-page pitch: features, AI cost, privacy and where it fits. Open it in a browser. |
 | `docs/CODE_FLOW.md` | How the code works: architecture, request checks, sign-in, logging, search, claims, data model. |
 
+**Install on a phone:** the app is installable (a PWA). On Android and Chromebooks, tap **Install app** in the header. On iPhone, open it in Safari and choose **Share → Add to Home Screen**. It opens full-screen from its own icon, works without an app store, and shows an offline screen with no connection. Files: `public/manifest.webmanifest`, `public/sw.js`, `public/offline.html`, `public/icons/`.
+
 **User guide:** the app has a built-in **How it works** page at `/help`, linked from the header and the sign-in screen. It covers finding and claiming an item, logging items, reviewing claims, and common questions.
 
 ---

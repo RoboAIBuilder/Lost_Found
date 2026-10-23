@@ -40,6 +40,9 @@ The page never reaches the database, the photos, Google or Claude directly. Ever
 | `public/index.html` | Page layout and styles: sign-in screen, student view, staff tabs, claim form, photo viewer |
 | `public/app.js` | Front-end logic: loads data, draws the screens, handles clicks, uploads photos, runs searches |
 | `public/help.html` | The How it works guide at `/help` |
+| `public/manifest.webmanifest` | App name, icons and colors, so phones can install it |
+| `public/sw.js` | Service worker: keeps the app's own files on the phone and shows `offline.html` with no connection. Never stores API answers or photos |
+| `public/offline.html`, `public/icons/` | The offline screen and app icons |
 | `vercel.json` | Vercel settings: function time limit, `/` and `/help` routes |
 | `requirements.txt`, `.python-version` | Python packages and version |
 | `seed/build.py`, `seed/draw.py`, `seed/export_demo.py` | Generate the demo item list, draw the photos, and write `app/demo_data/` |
@@ -225,6 +228,21 @@ Photos are named with 32 random hex characters, in `app/data/photos/` or under `
 - **Server calls, `api()`:** one helper adds the header, turns errors into readable messages, and reloads the page on a `401`.
 - **Changes, `act()`:** runs a server call, shows a toast like "Marked returned.", then calls `loadAll()`.
 - **Photos:** `shrink()` resizes each photo on a canvas before upload, and `openPhotos()` shows all of an item's photos in a full-screen viewer.
+
+## Installing as an app
+
+The site is a PWA, so phones and Chromebooks can install it without an app store.
+
+1. **The page points to the app info.** `index.html` links `manifest.webmanifest` (name, icons, navy theme, full-screen) and the iPhone icon.
+2. **`app.js` registers `sw.js`** once the page has loaded.
+3. **The install button.** On Android, Chrome and Edge, the browser fires `beforeinstallprompt`. The page keeps it and shows **Install app** in the header. iPhone Safari has no such event, so the page shows a one-time hint, "tap Share, then Add to Home Screen", until the student taps **Got it**.
+4. **The service worker:**
+    - **Pages:** network first, then the saved copy, then `offline.html`.
+    - **The app's own files:** the saved copy first, refreshed in the background.
+    - **Never saved:** `/api`, `/photos` and sign-in requests always go to the server.
+5. **Offline at start-up.** If `/api/me` can't be reached twice in a row, the page switches to the offline screen. **Try again** goes back to the app.
+
+To ship a change to the saved files, bump `VERSION` in `sw.js`. Phones then fetch the new set and drop the old one.
 
 ## Where to change things
 

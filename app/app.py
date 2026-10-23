@@ -348,9 +348,19 @@ def index():
 def help_page():
     return send_from_directory(PUBLIC_DIR, "help.html")
 
-@app.get("/<any('app.js', 'help.html', 'index.html'):name>")
+@app.get("/<any('app.js', 'help.html', 'index.html', 'offline.html', 'manifest.webmanifest'):name>")
 def public_file(name):
     return send_from_directory(PUBLIC_DIR, name)
+
+@app.get("/sw.js")
+def service_worker():
+    r = send_from_directory(PUBLIC_DIR, "sw.js", max_age=0)
+    r.headers["Cache-Control"] = "no-cache"
+    return r
+
+@app.get("/icons/<name>")
+def icon_file(name):
+    return send_from_directory(os.path.join(PUBLIC_DIR, "icons"), name)
 
 # ---- photo storage: Vercel Blob when connected, else the local photos folder
 def store_photo(name, data):
